@@ -18,7 +18,7 @@ Adapter负有部分界面逻辑责任。但还是建议作为View层的内容。
 ##Nucleus
 Nucleus的主要意图在于Activity在横竖屏切换,activity被回收的情况下，注定会再次启动。所以presenter不需要重新创建。  
 Nucleus保持了Presenter的引用，需要手动调用`destroyPresenter()`Presnter才会被销毁。  
-Activity在Bundle中存Presenter的Id，并在启动后依此寻找绑定Presenter。  
+Activity在Bundle中存Presenter的Id，并在启动后依此寻找绑定以前的Presenter，没有则新建。  
 只需互相写好泛型并给Activity写好注解，就可将Presenter与Activity双向注入。调用`getPresenter()``getView()`就可取得引用。
 
     @RequiresPresenter(MainPresenter.class)
@@ -26,7 +26,7 @@ Activity在Bundle中存Presenter的Id，并在启动后依此寻找绑定Present
     
     public class MainPresenter extends Presenter<MainActivity>
   
-
+不过很遗憾，这样双向注入就耦合的紧紧的。不能使用接口。也是一种缺陷吧。不过在开发中并没有多少影响。
 
 ##Presenter生命周期
 Presenter增加如下生命周期：  
@@ -95,7 +95,5 @@ Model负责数据处理与提供。
   这里2个回调都是在APP启动时回调。后台线程也是一个Looper线程。在里面用回调也没问题。  
   可以在这2个方法中进行一些初始化。能在后台进行的初始化尽量放在后台，避免启动时间过长。  
   多个model安招注册时排列顺序初始化。并以同样顺序在同一后台线程进行后台线程初始化。  
-  
-  
   
   
