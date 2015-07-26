@@ -1,4 +1,5 @@
 # Beam——便捷的MVP开发框架  
+MVP介绍参考[Android中的MVP](http://zhengxiaopeng.com/2015/02/06/Android%E4%B8%AD%E7%9A%84MVP/)与Google  
 View与Presenter的部分是在[nucleus](https://github.com/konmik/nucleus)之上的修改。
 主要对presenter的生命周期进行了补充。并修复部分bug。  
 给Model层增加生命周期。
