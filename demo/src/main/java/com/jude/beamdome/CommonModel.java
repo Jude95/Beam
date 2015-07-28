@@ -11,11 +11,11 @@ import com.jude.beam.model.AbsModel;
 public class CommonModel extends AbsModel {
     @Override
     protected void onAppCreate(Context ctx) {
-        Log.i("test","onAppCreate:"+Thread.currentThread().getName());
+        Log.i("test","这里是UI线程:"+Thread.currentThread().getName());
     }
 
     @Override
     protected void onAppCreateOnBackThread(Context ctx) {
-        Log.i("test","onAppCreateOnBackThread"+Thread.currentThread().getName());
+        Log.i("test","这里是后台线程"+Thread.currentThread().getName());
     }
 }

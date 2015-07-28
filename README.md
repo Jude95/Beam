@@ -5,6 +5,7 @@ View与Presenter的部分是在[nucleus](https://github.com/konmik/nucleus)之�
 给Model层增加生命周期。
 ##依赖
 `compile 'com.jude:beam:1.0.0'`
+完整Demo请看 [Know](https://github.com/Jude95/Know)
 
 ##Android的MVP缺陷
 Activity，Fragment将view与业务逻辑结合的太紧密。所以将Activity作为Presenter还是View都不很合适。  

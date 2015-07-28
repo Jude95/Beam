@@ -27,7 +27,7 @@ public class ModelManager {
             models = new Class[modelStrs.length];
             for (int i = 0; i < modelStrs.length; i++) {
                 Log.i("Beam","init :"+modelStrs[i]);
-                models[i] = Class.forName(modelStrs[i]);
+                models[i] = Class.forName(modelStrs[i].trim());
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
