@@ -1,9 +1,8 @@
-package com.jude.beamdome;
+package com.jude.beamdemo;
 
 import android.os.Bundle;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.jude.beam.Beam;
 import com.jude.beam.nucleus.manager.Presenter;
 
 
@@ -16,7 +15,6 @@ public class MainPresenter extends Presenter<MainActivity> {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         Fresco.initialize(getView());
-        Beam.init(getView());
         PersonModel.getInstance().getPersons();
     }
 

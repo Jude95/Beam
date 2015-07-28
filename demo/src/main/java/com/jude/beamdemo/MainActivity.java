@@ -1,4 +1,4 @@
-package com.jude.beamdome;
+package com.jude.beamdemo;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.jude.beam.nucleus.factory.RequiresPresenter;
 import com.jude.beam.nucleus.view.NucleusAppCompatActivity;
+import com.jude.beamdome.R;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 

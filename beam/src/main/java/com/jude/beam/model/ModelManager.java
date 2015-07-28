@@ -21,22 +21,26 @@ public class ModelManager {
             ApplicationInfo appInfo = ctx.getPackageManager()
                     .getApplicationInfo(ctx.getPackageName(),
                             PackageManager.GET_META_DATA);
+            if (appInfo.metaData == null||appInfo.metaData.getString("MODEL") == null){
+                Log.e("Beam","MODEL No Found!Have you declare MODEL in the manifests?");
+                return;
+            }
             String modelStr = appInfo.metaData.getString("MODEL").trim();
-            if (modelStr == null)return;
             String[] modelStrs = modelStr.split(",");
             models = new Class[modelStrs.length];
             for (int i = 0; i < modelStrs.length; i++) {
-                Log.i("Beam","init :"+modelStrs[i]);
-                models[i] = Class.forName(modelStrs[i].trim());
+                try{
+                    models[i] = Class.forName(modelStrs[i].trim());
+                }catch (ClassNotFoundException e){
+                    Log.e("Beam",modelStrs[i].trim()+" Class No Found!");
+                }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            return ;
         }
 
         for (Class m:models) {
-            if (AbsModel.class.isAssignableFrom(m)){
+            if (m!=null && AbsModel.class.isAssignableFrom(m)){
                 try {
                     AbsModel instance = (AbsModel) (m.newInstance());
                     mModelMap.put(m, instance);
@@ -53,6 +57,7 @@ public class ModelManager {
             @Override
             public void run() {
                 for (Class m: finalModels) {
+                    if (m!=null)
                     mModelMap.get(m).onAppCreateOnBackThread(ctx);
                 }
             }
@@ -60,6 +65,7 @@ public class ModelManager {
 
         //前台调用
         for (Class m:models) {
+            if (m!=null)
             mModelMap.get(m).onAppCreate(ctx);
         }
     }

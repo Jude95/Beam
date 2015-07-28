@@ -1,4 +1,4 @@
-package com.jude.beamdome;
+package com.jude.beamdemo;
 
 import android.content.Context;
 import android.view.ViewGroup;

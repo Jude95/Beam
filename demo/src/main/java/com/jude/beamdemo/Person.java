@@ -1,4 +1,4 @@
-package com.jude.beamdome;
+package com.jude.beamdemo;
 
 /**
  * Created by Mr.Jude on 2015/7/26.

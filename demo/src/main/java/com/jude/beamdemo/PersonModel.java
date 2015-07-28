@@ -1,4 +1,4 @@
-package com.jude.beamdome;
+package com.jude.beamdemo;
 
 import com.jude.beam.model.AbsModel;
 

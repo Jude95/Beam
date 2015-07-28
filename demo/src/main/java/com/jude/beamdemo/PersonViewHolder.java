@@ -1,10 +1,11 @@
-package com.jude.beamdome;
+package com.jude.beamdemo;
 
 import android.net.Uri;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jude.beamdome.R;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 
@@ -18,7 +19,7 @@ public class PersonViewHolder extends BaseViewHolder<Person> {
 
 
     public PersonViewHolder(ViewGroup parent) {
-        super(parent,R.layout.item_person);
+        super(parent, R.layout.item_person);
         mTv_name = $(R.id.person_name);
         mTv_sign = $(R.id.person_sign);
         mImg_face = $(R.id.person_face);
