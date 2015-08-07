@@ -25,6 +25,7 @@ public class NucleusFragment<PresenterType extends Presenter> extends Fragment {
         super.onCreate(bundle);
         if (bundle != null)
             helper.setPresenterState(bundle.getBundle(PRESENTER_STATE_KEY));
+        helper.createView(this);
     }
 
     @Nullable
