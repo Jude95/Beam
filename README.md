@@ -4,7 +4,7 @@ View与Presenter的部分是在[nucleus](https://github.com/konmik/nucleus)之�
 主要对presenter的生命周期进行了补充。并修复部分bug。  
 给Model层增加生命周期。
 ##依赖
-`compile 'com.jude:beam:1.0.2'`
+`compile 'com.jude:beam:1.0.3'`
 完整Demo请看 [Know](https://github.com/Jude95/Know)
 
 ##Android的MVP缺陷

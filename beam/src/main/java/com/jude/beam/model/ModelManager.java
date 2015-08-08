@@ -49,6 +49,8 @@ public class ModelManager {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
+            }else{
+                Log.e("Beam","your model must extends AbsModel");
             }
         }
         //后台调用
@@ -65,7 +67,7 @@ public class ModelManager {
 
         //前台调用
         for (Class m:models) {
-            if (m!=null)
+            if (m!=null && mModelMap.get(m)!=null)
             mModelMap.get(m).onAppCreate(ctx);
         }
     }
