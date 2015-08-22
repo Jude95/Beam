@@ -20,7 +20,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.jude:easyrecyclerview:3.0.3'
+    compile 'com.afollestad:material-dialogs:0.7.5.5'
+    compile 'io.reactivex:rxandroid:0.25.0'
 }
 
 ext {
@@ -33,7 +36,7 @@ ext {
     siteUrl = 'https://github.com/Jude95/RequestVolley'
     gitUrl = 'https://github.com/Jude95/RequestVolley'
 
-    libraryVersion = '1.0.3'//版本号
+    libraryVersion = '2.0.7'//版本号
     libraryName = 'beam'//项目名字，没什么用
     libraryDescription = 'A framwork for Android'//项目描述，没什么用
 

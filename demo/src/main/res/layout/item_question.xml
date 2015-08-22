@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            >
+            <FrameLayout
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="32dp">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/face"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:roundAsCircle="true"
+                    app:failureImage="@drawable/ic_person"
+                    />
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="40dp"
+                    tool:text="Jude"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info"
+                android:layout_marginTop="8dp"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                tool:text="挖掘机技术哪家强？"/>
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_marginTop="16dp"
+                android:maxLines="5"
+                android:lineSpacingMultiplier="1.2"
+                android:ellipsize="end"
+                style="@style/TextAppearance.AppCompat.Body1"
+                tool:text="蓝翔和新东方哪家更好，求推荐"/>
+            <TextView
+                android:id="@+id/answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/content"
+                android:layout_marginTop="8dp"
+                style="@style/TextAppearance.AppCompat.Caption"
+                tool:text="1个回答"/>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/content"
+                android:layout_marginTop="8dp"
+                style="@style/TextAppearance.AppCompat.Caption"
+                tool:text="最近回答 2小时前"/>
+
+        </RelativeLayout>
+
+</android.support.v7.widget.CardView>

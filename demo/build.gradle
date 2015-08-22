@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'me.tatarka.retrolambda'
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -21,8 +21,11 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.jude:easyrecyclerview:1.0.2'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:cardview-v7:22.2.1'
     compile 'com.facebook.fresco:fresco:0.5.1'
+    compile 'com.jude:requestvolley:1.0.4'
+    compile 'com.jude:utils:1.0.7'
+    compile 'com.google.code.gson:gson:2.3.1'
     compile project(':beam')
 }
