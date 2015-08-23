@@ -1,4 +1,4 @@
-package com.jude.beamdemo;
+package com.jude.beamdemo.app;
 
 import android.app.Application;
 
@@ -16,6 +16,7 @@ public class APP extends Application {
         super.onCreate();
         Fresco.initialize(this);
         Beam.init(this);
+        Beam.registerActivityLifetCyclerDelegate(MineActivityLifeCycleDelegate.class);
         RequestManager.getInstance().init(this);
         RequestManager.getInstance().setDebugMode(true,"BeamNet");
         JUtils.initialize(this);
