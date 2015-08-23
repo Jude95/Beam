@@ -1,103 +1,38 @@
 # Beam——便捷的MVP开发框架  
-MVP介绍参考[Android中的MVP](http://zhengxiaopeng.com/2015/02/06/Android%E4%B8%AD%E7%9A%84MVP/)与Google  
-View与Presenter的部分是在[nucleus](https://github.com/konmik/nucleus)之上的修改。
-主要对presenter的生命周期进行了补充。并修复部分bug。  
-给Model层增加生命周期。
-##依赖
-`compile 'com.jude:beam:1.0.3'`
-完整Demo请看 [Know](https://github.com/Jude95/Know)
 
-##Android的MVP缺陷
-Activity，Fragment将view与业务逻辑结合的太紧密。所以将Activity作为Presenter还是View都不很合适。  
+Beam 是一套基于MVP模式的快速开发框架。定义了一套开发规范。并提供了基于这套规范的Activity，Fragment，Presenter，Model等父类及控件和API等，完成APP开发过程中大量繁琐工作。  
+主要包含3部分：  
+ui — Presenter与View层的双向注入。管理了Activity与Presenter的引用关系。让Presenter来控制Activity的显示。  
+expansion — 包含了对ui层的一系列拓展功能。并提供了数据展示及数据列表展示的开发模版。  
+model — 数据层，在APP启动时初始化所有model，并提供一个处理数据用的后台Looper线程。    
 
-作为Presenter，主要是因为activity的生命周期，与各种Intent属于业务逻辑。  
-列如某大神的方案[Android MVP - An Alternate Approach](http://blog.cainwong.com/android-mvp-an-alternate-approach/)  
+##使用  
+`compile 'com.jude:beam:2.0.7'`  
 
-作为View，主要是所有View生成都需要Context，ActionBar与Activity耦合度太高。  
-现在的主流，我将生命周期移植到Presenter中来弥补这种方案的不足。
-
-Adapter负有部分界面逻辑责任。但还是建议作为View层的内容。因为他的目的是接收数据解析生成UI展示。而不负责业务逻辑。
-这样开发效率也更高。我在[EasyRecyclerView](https://github.com/Jude95/EasyRecyclerView)中将Adapter彻底封装为View。
-
-##Nucleus
-Nucleus的主要意图在于Activity在横竖屏切换,activity被回收的情况下，注定会再次启动。所以presenter不需要重新创建。  
-Nucleus保持了Presenter的引用，需要手动调用`destroyPresenter()`Presnter才会被销毁。  
-Activity在Bundle中存Presenter的Id，并在启动后依此寻找绑定以前的Presenter，没有则新建。  
-只需互相写好泛型并给Activity写好注解，就可将Presenter与Activity双向注入。调用`getPresenter()``getView()`就可取得引用。
-
-    @RequiresPresenter(MainPresenter.class)
-    public class MainActivity extends NucleusAppCompatActivity<MainPresenter>
-    
-    public class MainPresenter extends Presenter<MainActivity>
+在你的自定义Application中加入 `Beam.init(this);`  
+让你的Activity都继承于  
+[`BeamAppCompatActivity`](https://github.com/Jude95/Beam/wiki/BeamAppCompatActivity&BeamFragment)  
+[`BeamBaseActivity`](https://github.com/Jude95/Beam/wiki/BeamBaseActivity)  
+[`BeamListActivity`](https://github.com/Jude95/Beam/wiki/BeamList)  
+[`BeamDataActivity`](https://github.com/Jude95/Beam/wiki/BeamData)  
   
-不过很遗憾，这样双向注入就耦合的紧紧的。不能使用接口。也是一种缺陷吧。不过在开发中并没有多少影响。
 
-##Presenter生命周期
-Presenter增加如下生命周期：  
-`void onCreate(Bundle savedState)`——presenter唯一一次初始化,在Activity的onCreate之前执行  
-`void onCreateView(ViewType view)`——相当于Activity的onCreate但在它之后调用  
-`void onTakeView(ViewType view)`——相当于Activity的onResume  
-`void onDropView()`——相当于Activity的onPause  
-`void onResult(int requestCode, int resultCode, Intent data)`——相当于Activity的onActivityResult  
-`void onDestroy()`——相当于Activity的onDestroy  
+Fragment都继承于  
+[`BeamFragment`](https://github.com/Jude95/Beam/wiki/BeamAppCompatActivity&BeamFragment)    
+[`BeamListFragment`](https://github.com/Jude95/Beam/wiki/BeamList)  
+中的一个。  
 
-建议这样写：
+Presenter都继承于[`Presenter`](https://github.com/Jude95/Beam/wiki/Presenter)  
+Model都继承于[`AbsModel`](https://github.com/Jude95/Beam/wiki/Model)  
 
-    public class TopicListPresenter extends BasePresenter<TopicListActivity> {
-        private Topic[] topics;//持有数据
-        
-        @Override
-        protected void onCreate(Bundle savedState) {
-            super.onCreate(savedState);
-            //在OnCreate里加载数据并保存一份，再设置给View，
-            // 注意里是异步,运行到这里时Activity的onCreate还没有执行。但回调时Activity的onCreate一定已经执行完。View已初始化完毕。
-            JobModel.getInstance().getTopicList(new DataCallback<Topic[]>() {
-                @Override
-                public void success(String info, Topic[] data) {
-                    getView().addDataWithRefresh(topics = data);
-                }
-            });
-        }
-    
-        @Override
-        protected void onCreateView(TopicListActivity view) {
-            super.onCreateView(view);
-            //activity每次被创建就直接把数据设置给它。而不需要再去加载一边。因此不会在横竖屏切换时重复加载。
-            getView().addDataWithRefresh(topics);
-        }
-    }
 
-##Model
-Model负责数据处理与提供。  
-很多需要在应用启动时初始化。预加载，以提高后面的响应速度。  
-本框架中提供了Application启动时的回调。  
+##重复依赖
+本库已经依赖了下面的库，请注意重复依赖的问题  
+>
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.jude:easyrecyclerview:3.0.3'
+    compile 'com.afollestad:material-dialogs:0.7.5.5'
+    compile 'io.reactivex:rxandroid:0.25.0'
 
-先在Application的onCreate中调用：`Beam.init(Context ctx);`  
-然后在AndroidManifest.xml中的Application节点下增加如下：
-
-        <meta-data
-            android:name="MODEL"
-            android:value="
-            com.jude.beamdome.PersonModel,
-            com.jude.beamdome.CommonModel
-            "
-            />
-这里注册自己的model，value里填完整包名。逗号分隔。启动时便会自动初始化这些model。
-
-      public class CommonModel extends AbsModel {
-          @Override
-          protected void onAppCreate(Context ctx) {
-              Log.i("test","这里是UI线程:"+Thread.currentThread().getName());
-          }
-      
-          @Override
-          protected void onAppCreateOnBackThread(Context ctx) {
-              Log.i("test","这里是后台线程"+Thread.currentThread().getName());
-          }
-      }
-  
-  这里2个回调都是在APP启动时回调。后台线程也是一个Looper线程。在里面用回调也没问题。  
-  可以在这2个方法中进行一些初始化。能在后台进行的初始化尽量放在后台，避免启动时间过长。  
-  多个model安照注册时排列顺序初始化。并以同样顺序在同一后台线程进行后台线程初始化。  
-  
-  
+##MVP模式
+MVP模式在Android开发中的使用越来越流行，它十分适合Android。最好先看看[本框架对MVP的理解](https://github.com/Jude95/Beam/wiki/MVP%E6%A8%A1%E5%BC%8F)。
