@@ -28,4 +28,7 @@ dependencies {
     compile 'com.jude:utils:1.0.7'
     compile 'com.google.code.gson:gson:2.3.1'
     compile project(':beam')
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.jude:rollviewpager:1.0.1'
 }

@@ -14,12 +14,12 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        JUtils.initialize(this);
+        JUtils.setDebug(true, "BeamTest");
         Fresco.initialize(this);
         Beam.init(this);
         Beam.registerActivityLifetCyclerDelegate(MineActivityLifeCycleDelegate.class);
         RequestManager.getInstance().init(this);
-        RequestManager.getInstance().setDebugMode(true,"BeamNet");
-        JUtils.initialize(this);
-        JUtils.setDebug(true,"BeamTest");
+        RequestManager.getInstance().setDebugMode(true, "BeamNet");
     }
 }

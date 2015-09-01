@@ -3,12 +3,12 @@ package com.jude.beamdemo.presenter;
 import android.os.Bundle;
 
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
-import com.jude.beamdemo.view.AnswerActivity;
 import com.jude.beamdemo.model.QuestionModel;
 import com.jude.beamdemo.model.bean.Answer;
 import com.jude.beamdemo.model.bean.AnswerResult;
 import com.jude.beamdemo.model.bean.Question;
-import com.jude.beamdemo.model.callback.DataCallback;
+import com.jude.beamdemo.model.service.ServiceResponse;
+import com.jude.beamdemo.view.AnswerActivity;
 
 
 /**
@@ -28,35 +28,36 @@ public class AnswerPresenter extends BeamListActivityPresenter<AnswerActivity,An
 
     @Override
     public void onRefresh() {
-        QuestionModel.getInstance().getAnswerFromServer(0, question.getId(), false, new DataCallback<AnswerResult>() {
+        QuestionModel.getInstance().getAnswers(0, question.getId(), false).subscribe(new ServiceResponse<AnswerResult>() {
+
             @Override
-            public void success(String info, AnswerResult data) {
-                getAdapter().clear();
-                getAdapter().addAll(data.getAnswers());
-                if (data.getTotalPage()-1 == page)getAdapter().stopMore();
-                page = 1;
+            public void onError(Throwable e) {
+                getView().showError();
             }
 
             @Override
-            public void onError(String s) {
-                getView().showError();
+            public void onNext(AnswerResult answerResult) {
+                getAdapter().clear();
+                getAdapter().addAll(answerResult.getAnswers());
+                if (answerResult.getTotalPage() == page) getAdapter().stopMore();
+                page = 1;
             }
         });
     }
 
     @Override
     public void onLoadMore() {
-        QuestionModel.getInstance().getAnswerFromServer(page, question.getId(), false, new DataCallback<AnswerResult>() {
+        QuestionModel.getInstance().getAnswers(page, question.getId(), false).subscribe(new ServiceResponse<AnswerResult>() {
             @Override
-            public void success(String info, AnswerResult data) {
-                getAdapter().addAll(data.getAnswers());
-                if (data.getTotalPage()-1 == page) getAdapter().stopMore();
-                page++;
+            public void onError(Throwable e) {
+                getAdapter().pauseMore();
             }
 
             @Override
-            public void onError(String s) {
-                getAdapter().pauseMore();
+            public void onNext(AnswerResult answerResult) {
+                getAdapter().addAll(answerResult.getAnswers());
+                if (answerResult.getTotalPage() == page) getAdapter().stopMore();
+                page++;
             }
         });
     }

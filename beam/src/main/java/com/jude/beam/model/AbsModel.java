@@ -11,7 +11,7 @@ public abstract class AbsModel {
         if (model == null)throw new RuntimeException(clazz.getName()+" No Found , Have you declare MODEL in the manifests?");
         return (T) model;
     }
-
+    protected <N> N getNetManager(){return null;}
     protected void onAppCreate(Context ctx){}
     protected void onAppCreateOnBackThread(Context ctx){}
     protected final void runOnBackThread(Runnable runnable){
