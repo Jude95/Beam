@@ -27,13 +27,9 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getLayout()!=0){
-            setContentView(getLayout());
-            findRecycler();
-        }else{
-            setContentView(createDefaultRecycler());
-        }
         mListConfig = getConfig();
+        createRecycler();
+        findRecycler();
         initList();
         mListView.setAdapterWithProgress(mAdapter = getPresenter().getAdapter());
         initAdapter();
@@ -52,14 +48,24 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
 
     private void findRecycler(){
         mListView = (EasyRecyclerView) findViewById(R.id.recycler);
+        if (mListView==null)throw new RuntimeException("No found recycler with id \"recycler\"");
         mListView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private View createDefaultRecycler(){
-        mListView = new EasyRecyclerView(this);
-        mListView.setLayoutManager(new LinearLayoutManager(this));
-        mListView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        return mListView;
+    private void createRecycler(){
+        if (getLayout()!=0){
+            setContentView(getLayout());
+        }else if (mListConfig.mContainerLayoutRes!=0){
+            setContentView(mListConfig.mContainerLayoutRes);
+        }else if (mListConfig.mContainerErrorView!=null){
+            setContentView(mListConfig.mContainerLayoutView);
+        }else{
+            EasyRecyclerView mListView = new EasyRecyclerView(this);
+            mListView.setId(R.id.recycler);
+            mListView.setLayoutManager(new LinearLayoutManager(this));
+            mListView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            setContentView(mListView);
+        }
     }
 
     private void initList(){
@@ -101,7 +107,7 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
     }
 
     protected ListConfig getConfig(){
-        return new ListConfig();
+        return ListConfig.Default;
     }
 
     public int getViewType(int position){

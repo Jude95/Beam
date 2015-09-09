@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.beamdemo.model.bean.AnswerResult;
-import com.jude.beamdemo.model.bean.Question;
 import com.jude.beamdemo.model.bean.QuestionResult;
 import com.jude.beamdemo.model.service.DefaultTransform;
 import com.jude.beamdemo.model.service.ServiceClient;
@@ -23,9 +22,7 @@ public class QuestionModel extends AbsModel {
     protected void onAppCreate(Context ctx) {
         super.onAppCreate(ctx);
     }
-    public Observable<Question> getQuestion(int id){
-        return Observable.just(new Question()).compose(new DefaultTransform<Question>());
-    }
+
     public Observable<QuestionResult> getQuestions(int page){
         return ServiceClient.getService().getQuestions(page).compose(new DefaultTransform<QuestionResult>());
     }

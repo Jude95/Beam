@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
+import com.jude.beam.expansion.list.ListConfig;
+import com.jude.beamdome.R;
 import com.jude.http.RequestManager;
 import com.jude.utils.JUtils;
 
@@ -21,5 +23,10 @@ public class APP extends Application {
         Beam.registerActivityLifetCyclerDelegate(MineActivityLifeCycleDelegate.class);
         RequestManager.getInstance().init(this);
         RequestManager.getInstance().setDebugMode(true, "BeamNet");
+        ListConfig.setDefaultListConfig(
+                new ListConfig().
+                        setRefreshAble(true).
+                        setContainerLayoutRes(R.layout.activity_recyclerview).
+                        setLoadmoreAble(true));
     }
 }

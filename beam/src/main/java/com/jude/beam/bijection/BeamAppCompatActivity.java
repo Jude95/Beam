@@ -22,8 +22,8 @@ public abstract class BeamAppCompatActivity<PresenterType extends Presenter> ext
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (activityLifeCycleDelegate!=null)activityLifeCycleDelegate.onCreate(savedInstanceState);
         preCreatePresenter();
+        if (activityLifeCycleDelegate!=null)activityLifeCycleDelegate.onCreate(savedInstanceState);
         helper.onCreate(savedInstanceState);
     }
 
@@ -31,7 +31,7 @@ public abstract class BeamAppCompatActivity<PresenterType extends Presenter> ext
         if (Beam.getActivityLifeCycleDelegateClass()!=null){
             try {
                 activityLifeCycleDelegate = (ActivityLifeCycleDelegate) Beam.getActivityLifeCycleDelegateClass().newInstance();
-                activityLifeCycleDelegate.setContext(this);
+                activityLifeCycleDelegate.setActivity(this);
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {

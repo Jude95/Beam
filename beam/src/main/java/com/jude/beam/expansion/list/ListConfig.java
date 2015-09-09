@@ -5,15 +5,22 @@ import android.view.View;
 import com.jude.beam.R;
 
 public class ListConfig{
+    static ListConfig Default = new ListConfig();
+    public static void setDefaultListConfig(ListConfig config){
+        Default = config;
+    }
+
     boolean mRefreshAble;
     boolean mLoadmoreAble;
-    boolean mNoMoreAble;
+    boolean mNoMoreAble = true;
     boolean mErrorAble = true;
     boolean mErrorTouchToResumeAble = true;
     boolean mContainerProgressAble = true;
     boolean mContainerEmptyAble = true;
     boolean mContainerErrorAble = true;
 
+    View mContainerLayoutView;
+    int mContainerLayoutRes = 0;
     View mContainerEmptyView;
     int mContainerEmptyRes = R.layout.beam_view_list_con_empty;
     View mContainerProgressView;
@@ -28,6 +35,15 @@ public class ListConfig{
     int mErrorRes = R.layout.beam_view_list_error;
 
 
+    public ListConfig setContainerLayoutView(View mContainerLayoutView) {
+        this.mContainerLayoutView = mContainerLayoutView;
+        return this;
+    }
+
+    public ListConfig setContainerLayoutRes(int mContainerLayoutRes) {
+        this.mContainerLayoutRes = mContainerLayoutRes;
+        return this;
+    }
     public ListConfig setErrorAble(boolean mErrorAble) {
         this.mErrorAble = mErrorAble;
         return this;
@@ -92,43 +108,52 @@ public class ListConfig{
         return this;
     }
 
-    public void setContainerEmptyView(View mContainerEmptyView) {
+    public ListConfig setContainerEmptyView(View mContainerEmptyView) {
         this.mContainerEmptyAble = true;
         this.mContainerEmptyView = mContainerEmptyView;
+        return this;
     }
 
-    public void setContainerEmptyRes(int mContainerEmptyRes) {
+    public ListConfig setContainerEmptyRes(int mContainerEmptyRes) {
         this.mContainerEmptyAble = true;
         this.mContainerEmptyRes = mContainerEmptyRes;
+        return this;
     }
 
-    public void setContainerProgressView(View mContainerProgressView) {
+    public ListConfig setContainerProgressView(View mContainerProgressView) {
         this.mContainerProgressAble = true;
         this.mContainerProgressView = mContainerProgressView;
+        return this;
     }
 
-    public void setContainerProgressRes(int mContainerProgressRes) {
+    public ListConfig setContainerProgressRes(int mContainerProgressRes) {
         this.mContainerProgressAble = true;
         this.mContainerProgressRes = mContainerProgressRes;
+        return this;
     }
 
-    public void setContainerErrorView(View mContainerErrorView) {
+    public ListConfig setContainerErrorView(View mContainerErrorView) {
         this.mContainerErrorAble = true;
         this.mContainerErrorView = mContainerErrorView;
+        return this;
     }
-    public void setContainerErrorRes(int mContainerErrorRes) {
+    public ListConfig setContainerErrorRes(int mContainerErrorRes) {
         this.mContainerErrorAble = true;
         this.mContainerErrorRes = mContainerErrorRes;
+        return this;
     }
-    public void setContainerProgressAble(boolean mContainerProgressAble) {
+    public ListConfig setContainerProgressAble(boolean mContainerProgressAble) {
         this.mContainerProgressAble = mContainerProgressAble;
+        return this;
     }
 
-    public void setContainerNoMoreAble(boolean mContainerNoMoreAble) {
+    public ListConfig setContainerNoMoreAble(boolean mContainerNoMoreAble) {
         this.mContainerEmptyAble = mContainerNoMoreAble;
+        return this;
     }
 
-    public void setContainerErrorAble(boolean mContainerErrorAble) {
+    public ListConfig setContainerErrorAble(boolean mContainerErrorAble) {
         this.mContainerErrorAble = mContainerErrorAble;
+        return this;
     }
 }

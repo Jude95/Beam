@@ -35,13 +35,9 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (getLayout()!=0){
-            mRootView = inflater.inflate(getLayout(),container,false);
-            findRecycler();
-        }else{
-            mRootView = createDefaultRecycler();
-        }
         mListConfig = getConfig();
+        createRecycler(container);
+        findRecycler();
         initList();
         mListView.setAdapterWithProgress(mAdapter = getPresenter().getAdapter());
         initAdapter();
@@ -64,11 +60,22 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
         mListView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private View createDefaultRecycler(){
-        mListView = new EasyRecyclerView(getActivity());
-        mListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mListView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        return mListView;
+
+
+    private void createRecycler(ViewGroup container){
+        if (getLayout()!=0){
+            mRootView = LayoutInflater.from(getActivity()).inflate(getLayout(), container, false);
+        }else if (mListConfig.mContainerLayoutRes!=0){
+            mRootView = LayoutInflater.from(getActivity()).inflate(mListConfig.mContainerLayoutRes,container,false);
+        }else if (mListConfig.mContainerErrorView!=null){
+            mRootView = mListConfig.mContainerLayoutView;
+        }else{
+            EasyRecyclerView mListView = new EasyRecyclerView(getActivity());
+            mListView.setId(R.id.recycler);
+            mListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mListView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            mRootView = mListView;
+        }
     }
 
     private void initList(){
@@ -110,7 +117,7 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
     }
 
     protected ListConfig getConfig(){
-        return new ListConfig();
+        return ListConfig.Default;
     }
 
     public int getViewType(int type){

@@ -32,8 +32,8 @@ class ViewHelper<PresenterType extends Presenter> {
         }else{
             presenter = PresenterManager.getInstance().get(id);
             if (presenter == null){
-                throw new RuntimeException("有可能为空？在逗我？");
-                //presenter = PresenterManager.getInstance().create(view);
+                //throw new RuntimeException("有可能为空？在逗我？");
+                presenter = PresenterManager.getInstance().create(view);
             }
         }
     }

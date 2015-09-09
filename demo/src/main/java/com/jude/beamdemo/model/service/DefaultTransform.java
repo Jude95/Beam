@@ -1,5 +1,7 @@
 package com.jude.beamdemo.model.service;
 
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -10,6 +12,6 @@ import rx.android.schedulers.AndroidSchedulers;
 public class DefaultTransform<T> implements Observable.Transformer<T, T> {
     @Override
     public Observable<T> call(Observable<T> tObservable) {
-        return tObservable.observeOn(AndroidSchedulers.mainThread());
+        return tObservable.delay(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread());
     }
 }

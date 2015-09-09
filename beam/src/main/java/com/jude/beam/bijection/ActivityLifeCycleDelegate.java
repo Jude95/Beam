@@ -1,7 +1,7 @@
 package com.jude.beam.bijection;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,14 +11,14 @@ import android.os.PersistableBundle;
  * Created by Mr.Jude on 2015/8/22.
  */
 public class ActivityLifeCycleDelegate{
-    private Context ctx;
+    private Activity act;
 
-    public void setContext(Context ctx) {
-        this.ctx = ctx;
+    public void setActivity(Activity act) {
+        this.act = act;
     }
 
-    public Context getContext() {
-        return ctx;
+    public Activity getActivity() {
+        return act;
     }
 
     protected void onCreate(Bundle savedInstanceState) {

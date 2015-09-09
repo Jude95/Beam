@@ -17,25 +17,22 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
     @RequiresPresenter(QuestionPresenter.class)
     public class QuestionActivity extends BeamListActivity<QuestionPresenter,Question> {
 
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-        }
-
-        @Override
-        protected ListConfig getConfig() {
-            return super.getConfig()
-                    .setRefreshAble(true)
-                    .setNoMoreAble(true)
-                    .setLoadmoreAble(true)
-                    .setErrorAble(true)
-                    .setErrorTouchToResumeAble(true);
-        }
-
-        @Override
-        protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
-            return new QuestionViewHolder(parent);
-        }
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
+
+    @Override
+    protected ListConfig getConfig() {
+        return super.getConfig()
+                .setNoMoreAble(true)
+                .setErrorAble(true)
+                .setErrorTouchToResumeAble(true);
+    }
+
+    @Override
+    protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
+        return new QuestionViewHolder(parent);
+    }
+
+}

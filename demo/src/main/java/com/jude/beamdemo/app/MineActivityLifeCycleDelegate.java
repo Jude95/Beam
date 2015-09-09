@@ -13,7 +13,7 @@ import com.jude.utils.JUtils;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            JUtils.Log("onPause"+getContext().getClass().getName());
+            JUtils.Log("onPause"+getActivity().getClass().getName());
         }
 
         @Override
