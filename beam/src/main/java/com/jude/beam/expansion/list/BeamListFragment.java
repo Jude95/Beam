@@ -117,7 +117,7 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
     }
 
     protected ListConfig getConfig(){
-        return ListConfig.Default;
+        return ListConfig.Default.clone();
     }
 
     public int getViewType(int type){

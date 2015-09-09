@@ -4,14 +4,14 @@ import android.view.View;
 
 import com.jude.beam.R;
 
-public class ListConfig{
+public class ListConfig implements Cloneable{
     static ListConfig Default = new ListConfig();
     public static void setDefaultListConfig(ListConfig config){
         Default = config;
     }
 
-    boolean mRefreshAble;
-    boolean mLoadmoreAble;
+    boolean mRefreshAble = false;
+    boolean mLoadmoreAble = false;
     boolean mNoMoreAble = true;
     boolean mErrorAble = true;
     boolean mErrorTouchToResumeAble = true;
@@ -51,13 +51,11 @@ public class ListConfig{
 
     public ListConfig setErrorView(View mErrorView) {
         this.mErrorView = mErrorView;
-        this.mErrorAble = true;
         return this;
     }
 
     public ListConfig setErrorRes(int mErrorRes) {
         this.mErrorRes = mErrorRes;
-        this.mErrorAble = true;
         return this;
     }
 
@@ -82,19 +80,16 @@ public class ListConfig{
 
     public ListConfig setLoadMoreView(View mLoadMoreView) {
         this.mLoadMoreView = mLoadMoreView;
-        this.mLoadmoreAble = true;
         return this;
     }
 
     public ListConfig setLoadMoreRes(int mLoadMoreRes) {
         this.mLoadMoreRes = mLoadMoreRes;
-        this.mLoadmoreAble = true;
         return this;
     }
 
     public ListConfig setNoMoreView(View mNoMoreView) {
         this.mNoMoreView = mNoMoreView;
-        this.mNoMoreAble = true;
         return this;
     }
 
@@ -104,41 +99,34 @@ public class ListConfig{
     }
     public ListConfig setNoMoreRes(int mMoMoreRes) {
         this.mNoMoreRes = mMoMoreRes;
-        this.mNoMoreAble = true;
         return this;
     }
 
     public ListConfig setContainerEmptyView(View mContainerEmptyView) {
-        this.mContainerEmptyAble = true;
         this.mContainerEmptyView = mContainerEmptyView;
         return this;
     }
 
     public ListConfig setContainerEmptyRes(int mContainerEmptyRes) {
-        this.mContainerEmptyAble = true;
         this.mContainerEmptyRes = mContainerEmptyRes;
         return this;
     }
 
     public ListConfig setContainerProgressView(View mContainerProgressView) {
-        this.mContainerProgressAble = true;
         this.mContainerProgressView = mContainerProgressView;
         return this;
     }
 
     public ListConfig setContainerProgressRes(int mContainerProgressRes) {
-        this.mContainerProgressAble = true;
         this.mContainerProgressRes = mContainerProgressRes;
         return this;
     }
 
     public ListConfig setContainerErrorView(View mContainerErrorView) {
-        this.mContainerErrorAble = true;
         this.mContainerErrorView = mContainerErrorView;
         return this;
     }
     public ListConfig setContainerErrorRes(int mContainerErrorRes) {
-        this.mContainerErrorAble = true;
         this.mContainerErrorRes = mContainerErrorRes;
         return this;
     }
@@ -155,5 +143,15 @@ public class ListConfig{
     public ListConfig setContainerErrorAble(boolean mContainerErrorAble) {
         this.mContainerErrorAble = mContainerErrorAble;
         return this;
+    }
+
+    @Override
+    public ListConfig clone(){
+        try {
+            return (ListConfig) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return new ListConfig();
     }
 }

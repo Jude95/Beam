@@ -26,6 +26,7 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
 
     @Override
     public void dismissProgressDialog() {
+        if (mProgressDialog!=null)
         mProgressDialog.dismiss();
     }
 
@@ -38,7 +39,8 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
 
     @Override
     public void dismissProgressPage() {
-        getContainer().removeView(mLoadingView);
+        if (mLoadingView!=null)
+            getContainer().removeView(mLoadingView);
     }
 
     @Override

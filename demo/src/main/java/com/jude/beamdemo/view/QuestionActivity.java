@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
-import com.jude.beam.expansion.list.ListConfig;
 import com.jude.beamdemo.model.bean.Question;
 import com.jude.beamdemo.presenter.QuestionPresenter;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -22,13 +21,6 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected ListConfig getConfig() {
-        return super.getConfig()
-                .setNoMoreAble(true)
-                .setErrorAble(true)
-                .setErrorTouchToResumeAble(true);
-    }
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
