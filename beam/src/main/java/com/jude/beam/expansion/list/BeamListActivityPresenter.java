@@ -34,7 +34,7 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
     public void onRefresh() {
     }
 
-    protected class DataAdapter extends RecyclerArrayAdapter<M> {
+    public class DataAdapter extends RecyclerArrayAdapter<M> {
 
         public DataAdapter(Context context) {
             super(context);
