@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -21,7 +21,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.jude:easyrecyclerview:3.0.8'
+    compile 'com.jude:easyrecyclerview:3.0.9'
     compile 'com.afollestad:material-dialogs:0.7.5.5'
     compile 'io.reactivex:rxandroid:0.25.0'
 }
@@ -37,7 +37,7 @@ ext {
     gitUrl = 'https://github.com/Jude95/RequestVolley'
 
 
-    libraryVersion = '2.0.31'//版本号
+    libraryVersion = '2.0.32'//版本号
     libraryName = 'beam'//项目名字，没什么用
     libraryDescription = 'A framwork for Android'//项目描述，没什么用
 
