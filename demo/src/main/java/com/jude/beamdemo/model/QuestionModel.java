@@ -1,6 +1,7 @@
 package com.jude.beamdemo.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.beamdemo.model.bean.AnswerResult;

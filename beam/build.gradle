@@ -37,7 +37,7 @@ ext {
     gitUrl = 'https://github.com/Jude95/RequestVolley'
 
 
-    libraryVersion = '2.0.32'//版本号
+    libraryVersion = '2.1.3'//版本号
     libraryName = 'beam'//项目名字，没什么用
     libraryDescription = 'A framwork for Android'//项目描述，没什么用
 

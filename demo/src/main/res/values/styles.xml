@@ -11,4 +11,6 @@
         <item name="colorAccent">@color/orange</item>
         <item name="colorPrimary">@color/black_deep</item>
     </style>
+
+    <style name="test" parent="@style/Theme.AppCompat.Light.NoActionBar" />
 </resources>

@@ -9,12 +9,70 @@ import com.jude.beam.bijection.Presenter;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
+import rx.Subscriber;
+
 /**
  * Created by Mr.Jude on 2015/8/17.
  */
 public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Presenter<T>
         implements RecyclerArrayAdapter.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener{
     DataAdapter mAdapter;
+    int page = 0;
+    Subscriber<M[]> mRefreshSubscriber = new Subscriber<M[]>() {
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            getView().showError();
+        }
+
+        @Override
+        public void onNext(M[] ms) {
+            getAdapter().clear();
+            getAdapter().addAll(ms);
+            page = 1;
+        }
+
+        @Override
+        public void onStart() {
+        }
+    };
+
+    Subscriber<M[]> mMoreSubscriber = new Subscriber<M[]>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            getAdapter().pauseMore();
+        }
+
+        @Override
+        public void onNext(M[] ms) {
+            getAdapter().addAll(ms);
+            page++;
+        }
+    };
+
+    public int getCurPage(){
+        return page;
+    }
+
+    public void setCurPage(int page){
+        this.page = page;
+    }
+
+    public Subscriber<M[]> getRefreshSubscriber(){
+        return mRefreshSubscriber;
+    }
+
+    public Subscriber<M[]> getMoreSubscriber(){
+        return mMoreSubscriber;
+    }
 
     @Override
     protected void onCreate(T view, Bundle savedState) {
@@ -23,6 +81,7 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
     }
 
     public DataAdapter getAdapter(){
+        if (mAdapter == null)mAdapter = new DataAdapter(getView());
         return mAdapter;
     }
 

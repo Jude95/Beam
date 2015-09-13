@@ -1,19 +1,20 @@
 package com.jude.beamdemo.presenter;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.beamdemo.model.QuestionModel;
 import com.jude.beamdemo.model.bean.Question;
 import com.jude.beamdemo.model.bean.QuestionResult;
-import com.jude.beamdemo.model.service.ServiceResponse;
 import com.jude.beamdemo.view.QuestionActivity;
+
+import rx.functions.Func1;
 
 /**
  * Created by zhuchenxi on 15/6/7.
  */
     public class QuestionPresenter extends BeamListActivityPresenter<QuestionActivity,Question> {
-        int page;
         @Override
         protected void onCreate(QuestionActivity view, Bundle savedState) {
             super.onCreate(view, savedState);
@@ -23,36 +24,21 @@ import com.jude.beamdemo.view.QuestionActivity;
 
         @Override
         public void onLoadMore() {
-            QuestionModel.getInstance().getQuestions(page).subscribe(new ServiceResponse<QuestionResult>() {
+            QuestionModel.getInstance().getQuestions(getCurPage()).map(new Func1<QuestionResult, Question[]>() {
                 @Override
-                public void onServiceError(int status, String info) {
-                    getAdapter().pauseMore();
+                public Question[] call(QuestionResult questionResult) {
+                    return questionResult.getQuestions();
                 }
-
-                @Override
-                public void onNext(QuestionResult questionResult) {
-                    getAdapter().addAll(questionResult.getQuestions());
-                    if (questionResult.getTotalPage() == page) getAdapter().stopMore();
-                    page++;
-                }
-            });
+            }).subscribe(getMoreSubscriber());
         }
 
         @Override
         public void onRefresh() {
-            QuestionModel.getInstance().getQuestions(0).subscribe(new ServiceResponse<QuestionResult>() {
+            QuestionModel.getInstance().getQuestions(0).map(new Func1<QuestionResult, Question[]>() {
                 @Override
-                public void onServiceError(int status, String info) {
-                    getView().showError();
+                public Question[] call(QuestionResult questionResult) {
+                    return questionResult.getQuestions();
                 }
-
-                @Override
-                public void onNext(QuestionResult questionResult) {
-                    getAdapter().clear();
-                    getAdapter().addAll(questionResult.getQuestions());
-                    if (questionResult.getTotalPage()  == page) getAdapter().stopMore();
-                    page = 1;
-                }
-            });
+            }).unsafeSubscribe(getRefreshSubscriber());
         }
     }
