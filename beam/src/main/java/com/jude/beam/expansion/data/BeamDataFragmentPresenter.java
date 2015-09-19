@@ -9,7 +9,7 @@ import rx.subjects.BehaviorSubject;
 /**
  * Created by Mr.Jude on 2015/8/20.
  */
-public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Presenter<T> {
+public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Presenter<T>  implements Observer<M>{
     BehaviorSubject<M>  mData = BehaviorSubject.create();
     Subscription mSubscription;
 
@@ -40,11 +40,30 @@ public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Pre
         mSubscription.unsubscribe();
     }
 
+    public BehaviorSubject<M> getDataSubJect(){
+        return mData;
+    }
+
     public void publishObject(M data){
         mData.onNext(data);
     }
 
     public void publishError(Throwable e){
         mData.onError(e);
+    }
+
+    @Override
+    public void onCompleted() {
+        mData.onCompleted();
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        mData.onError(e);
+    }
+
+    @Override
+    public void onNext(M m) {
+        mData.onNext(m);
     }
 }

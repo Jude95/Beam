@@ -40,6 +40,10 @@ public class BeamDataActivityPresenter<T extends BeamDataActivity,M> extends Pre
         mSubscription.unsubscribe();
     }
 
+    public BehaviorSubject<M> getDataSubJect(){
+        return mData;
+    }
+
     public void publishObject(M data){
         mData.onNext(data);
     }
