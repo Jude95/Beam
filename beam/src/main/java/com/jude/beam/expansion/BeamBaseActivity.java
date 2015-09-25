@@ -10,6 +10,8 @@ import android.widget.FrameLayout;
 import com.jude.beam.R;
 import com.jude.beam.bijection.BeamAppCompatActivity;
 import com.jude.beam.bijection.Presenter;
+import com.jude.beam.expansion.overlay.ViewExpansionDelegate;
+import com.jude.beam.expansion.overlay.ViewExpansionDelegateProvider;
 
 /**
  * Created by Mr.Jude on 2015/8/17.

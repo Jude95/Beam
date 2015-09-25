@@ -1,4 +1,4 @@
-package com.jude.beam.expansion;
+package com.jude.beam.expansion.overlay;
 
 import android.content.Context;
 import android.view.View;
@@ -30,6 +30,10 @@ public abstract class ViewExpansionDelegate {
     public void dismissProgressPage(){}
     public View showErrorPage(){return  null;}
     public void dismissErrorPage(){}
+    public void setErrorRetryListener(OnRetryListener listener){}
+    public interface OnRetryListener{
+        void onRetry();
+    }
     public void addCustomOverlayView(View view){}
     public void removeCustomOverlayView(View view){}
 

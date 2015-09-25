@@ -1,4 +1,4 @@
-package com.jude.beam.expansion;
+package com.jude.beam.expansion.overlay;
 
 import android.content.Context;
 import android.widget.FrameLayout;
