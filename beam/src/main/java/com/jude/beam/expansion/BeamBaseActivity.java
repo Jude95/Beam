@@ -14,7 +14,7 @@ import com.jude.beam.bijection.Presenter;
 /**
  * Created by Mr.Jude on 2015/8/17.
  */
-public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivity<T> implements ViewExpansionDelegateProvider {
+public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivity<T> {
     //如果使用了ToolBar则自动部署。没有则无影响。
     private Toolbar toolbar;
 
@@ -43,9 +43,6 @@ public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivit
     public void preCreatePresenter() {
         super.preCreatePresenter();
         initViewTree();
-        mDelegate = createViewExpansionDelegate();
-        mDelegate.context = this;
-        mDelegate.container = mContentParent;
     }
 
     private void initViewTree(){
@@ -87,11 +84,13 @@ public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivit
     }
 
     private ViewExpansionDelegate mDelegate;
-    @Override
+
     public ViewExpansionDelegate createViewExpansionDelegate() {
-        return new DefaultViewExpansionDelegate();
+        return ViewExpansionDelegateProvider.DEFAULT.createViewExpansionDelegate(this,mContentParent);
     }
+
     public final ViewExpansionDelegate getExpansion() {
+        if (mDelegate==null)mDelegate = createViewExpansionDelegate();
         return mDelegate;
     }
 

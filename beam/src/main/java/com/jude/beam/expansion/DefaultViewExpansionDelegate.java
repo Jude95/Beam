@@ -1,7 +1,9 @@
 package com.jude.beam.expansion;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.R;
@@ -13,6 +15,10 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
     private MaterialDialog mProgressDialog;
     private View mLoadingView;
     private View mError;
+
+    public DefaultViewExpansionDelegate(Context context, FrameLayout container) {
+        super(context, container);
+    }
 
     @Override
     public void showProgressDialog(String title) {

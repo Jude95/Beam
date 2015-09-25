@@ -19,6 +19,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getExpansion().showProgressDialog("Test");
     }
 
 

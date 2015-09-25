@@ -18,7 +18,7 @@ public final class Beam {
     public static void init(Context ctx){
         ModelManager.init(ctx);
     }
-    public static <T extends ActivityLifeCycleDelegate> void registerActivityLifetCyclerDelegate(Class<T> activityLifeCycleDelegateClass){
+    public static <T extends ActivityLifeCycleDelegate> void registerActivityLifeCycleDelegate(Class<T> activityLifeCycleDelegateClass){
         Beam.activityLifeCycleDelegateClass = activityLifeCycleDelegateClass;
     }
 }

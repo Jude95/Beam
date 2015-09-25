@@ -8,8 +8,13 @@ import android.widget.FrameLayout;
  * Created by Mr.Jude on 2015/8/17.
  */
 public abstract class ViewExpansionDelegate {
-    Context context;
-    FrameLayout container;
+    private Context context;
+    private FrameLayout container;
+
+    public ViewExpansionDelegate(Context context, FrameLayout container) {
+        this.context = context;
+        this.container = container;
+    }
 
     public final Context getContext() {
         return context;
