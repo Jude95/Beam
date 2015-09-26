@@ -29,10 +29,10 @@ Model都继承于[`AbsModel`](https://github.com/Jude95/Beam/wiki/Model)
 ##重复依赖
 本库已经依赖了下面的库，请注意重复依赖的问题  
 >
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.jude:easyrecyclerview:3.0.6'
-    compile 'com.afollestad:material-dialogs:0.7.5.5'
-    compile 'io.reactivex:rxandroid:0.25.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.jude:easyrecyclerview:3.0.9'
+    compile 'com.afollestad:material-dialogs:0.7.9.1'
+    compile 'io.reactivex:rxandroid:1.0.1'
 
 ##MVP模式
-MVP模式在Android开发中的使用越来越流行，它十分适合Android。最好先看看[本框架对MVP的理解](https://github.com/Jude95/Beam/wiki/MVP%E6%A8%A1%E5%BC%8F)。
+MVP模式在Android开发中的使用越来越流行，它十分适合Android。最好先看看[本框架对MVP的理解](http://www.jianshu.com/p/ed2aa9546c2c)。

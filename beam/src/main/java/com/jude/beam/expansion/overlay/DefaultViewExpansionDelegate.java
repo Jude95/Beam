@@ -1,12 +1,12 @@
 package com.jude.beam.expansion.overlay;
 
-import android.content.Context;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.R;
+import com.jude.beam.expansion.BeamBaseActivity;
 
 /**
  * Created by Mr.Jude on 2015/8/18.
@@ -19,9 +19,16 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
     private View mProgressView;
     private View mErrorView;
 
-    public DefaultViewExpansionDelegate(Context context, FrameLayout container) {
-        super(context, container);
+
+    public DefaultViewExpansionDelegate(BeamBaseActivity activity, FrameLayout container) {
+        super(activity, container);
         mConfig = getConfig();
+    }
+
+
+    public DefaultViewExpansionDelegate(BeamBaseActivity activity, FrameLayout container, ViewConfig mConfig) {
+        super(activity, container);
+        this.mConfig = mConfig;
     }
 
     public ViewConfig getConfig(){
@@ -30,7 +37,7 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
 
     @Override
     public void showProgressDialog(String title) {
-        mProgressDialog = new MaterialDialog.Builder(getContext())
+        mProgressDialog = new MaterialDialog.Builder(getActivity())
                 .title(title)
                 .content(mConfig.mProgressTitle)
                 .progress(true, 100)
@@ -48,23 +55,25 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
     public View showProgressPage() {
         if (mProgressView ==null){
             if (mConfig.mProgressView!=null) mProgressView = mConfig.mProgressView;
-            else mProgressView = LayoutInflater.from(getContext()).inflate(mConfig.mProgressRes,getContainer(),false);
+            else mProgressView = getActivity().getLayoutInflater().inflate(mConfig.mProgressRes,getContainer(),false);
         }
         if (mProgressView.getParent()==null)getContainer().addView(mProgressView);
+        setToolbar(mProgressView);
         return mProgressView;
     }
 
     @Override
     public void dismissProgressPage() {
-        if (mProgressView !=null)
+        if (mProgressView !=null){
             getContainer().removeView(mProgressView);
+        }
     }
 
     @Override
     public View showErrorPage() {
         if (mErrorView ==null){
             if (mConfig.mErrorView!=null) mErrorView = mConfig.mErrorView;
-            else mErrorView = LayoutInflater.from(getContext()).inflate(mConfig.mErrorRes,getContainer(),false);
+            else mErrorView = getActivity().getLayoutInflater().inflate(mConfig.mErrorRes, getContainer(), false);
         }
         if (mErrorView.getParent()==null)getContainer().addView(mErrorView);
         mErrorView.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +82,16 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
                 if (mRetryListener != null) mRetryListener.onRetry();
             }
         });
+        setToolbar(mErrorView);
         return mErrorView;
+    }
+
+    public void setToolbar(View view){
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        if (toolbar!=null){
+            getActivity().setSupportActionBar(toolbar);
+            getActivity().onSetToolbar(toolbar);
+        }
     }
 
     @Override
@@ -83,7 +101,9 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
 
     @Override
     public void dismissErrorPage() {
-        getContainer().removeView(mErrorView);
+        if (mErrorView!=null){
+            getContainer().removeView(mErrorView);
+        }
     }
 
     @Override
