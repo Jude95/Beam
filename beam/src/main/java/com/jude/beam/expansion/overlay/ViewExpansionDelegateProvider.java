@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
  * Created by Mr.Jude on 2015/8/17.
  */
 public abstract class ViewExpansionDelegateProvider {
-    abstract ViewExpansionDelegate createViewExpansionDelegate(Context context, FrameLayout container);
+    public abstract ViewExpansionDelegate createViewExpansionDelegate(Context context, FrameLayout container);
 
     public static ViewExpansionDelegateProvider DEFAULT = new ViewExpansionDelegateProvider() {
         @Override

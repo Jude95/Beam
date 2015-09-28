@@ -7,7 +7,7 @@ expansion — 包含了对ui层的一系列拓展功能。并提供了数据展�
 model — 数据层，在APP启动时初始化所有model，并提供一个处理数据用的后台Looper线程。    
 
 ##使用  
-`compile 'com.jude:beam:2.2.2'`
+`compile 'com.jude:beam:2.2.4'`
 
 在你的自定义Application中加入 `Beam.init(this);`  
 让你的Activity都继承于  
@@ -29,10 +29,10 @@ Model都继承于[`AbsModel`](https://github.com/Jude95/Beam/wiki/Model)
 ##重复依赖
 本库已经依赖了下面的库，请注意重复依赖的问题  
 >
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.jude:easyrecyclerview:3.0.6'
-    compile 'com.afollestad:material-dialogs:0.7.5.5'
-    compile 'io.reactivex:rxandroid:0.25.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.jude:easyrecyclerview:3.0.9'
+    compile 'com.afollestad:material-dialogs:0.7.9.1'
+    compile 'io.reactivex:rxandroid:1.0.1'
 
 ##MVP模式
 MVP模式在Android开发中的使用越来越流行，它十分适合Android。最好先看看[本框架对MVP的理解](https://github.com/Jude95/Beam/wiki/MVP%E6%A8%A1%E5%BC%8F)。
