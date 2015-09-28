@@ -68,10 +68,14 @@ public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivit
         mContent.addView(view, params);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         if (toolbar!=null)
-            setToolbar(toolbar);
+            onSetToolbar(toolbar);
     }
 
-    private void setToolbar(Toolbar toolbar){
+    public Toolbar getToolbar(){
+        return toolbar;
+    }
+
+    public void onSetToolbar(Toolbar toolbar){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

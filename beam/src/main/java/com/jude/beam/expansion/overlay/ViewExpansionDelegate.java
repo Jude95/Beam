@@ -1,23 +1,24 @@
 package com.jude.beam.expansion.overlay;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import com.jude.beam.expansion.BeamBaseActivity;
 
 /**
  * Created by Mr.Jude on 2015/8/17.
  */
 public abstract class ViewExpansionDelegate {
-    private Context context;
+    private BeamBaseActivity activity;
     private FrameLayout container;
 
-    public ViewExpansionDelegate(Context context, FrameLayout container) {
-        this.context = context;
+    public ViewExpansionDelegate(BeamBaseActivity activity, FrameLayout container) {
+        this.activity = activity;
         this.container = container;
     }
 
-    public final Context getContext() {
-        return context;
+    public final BeamBaseActivity getActivity() {
+        return activity;
     }
 
     public final FrameLayout getContainer() {

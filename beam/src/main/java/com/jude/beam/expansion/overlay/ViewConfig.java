@@ -7,37 +7,41 @@ import com.jude.beam.R;
 /**
  * Created by Mr.Jude on 2015/9/25.
  */
-public class ViewConfig {
+public class ViewConfig implements Cloneable{
     static ViewConfig Default = new ViewConfig();
-    String mProgressTitle;
+    String mProgressTitle = "请稍等";
     View mProgressView;
     int mProgressRes = R.layout.beam_view_progress;
     View mErrorView;
     int mErrorRes = R.layout.beam_view_error;
 
-    public void setmProgressTitle(String mProgressTitle) {
+    public static void setDefaultViewConfig(ViewConfig viewConfig){
+        Default = viewConfig;
+    }
+
+    public ViewConfig setProgressTitle(String mProgressTitle) {
         this.mProgressTitle = mProgressTitle;
+        return this;
     }
 
-    public void setmProgressView(View mProgressView) {
+    public ViewConfig setProgressView(View mProgressView) {
         this.mProgressView = mProgressView;
+        return this;
     }
 
-    public void setmProgressRes(int mProgressRes) {
+    public ViewConfig setProgressRes(int mProgressRes) {
         this.mProgressRes = mProgressRes;
+        return this;
     }
 
-    public void setmErrorView(View mErrorView) {
+    public ViewConfig setErrorView(View mErrorView) {
         this.mErrorView = mErrorView;
+        return this;
     }
 
-    public void setmErrorRes(int mErrorRes) {
+    public ViewConfig setErrorRes(int mErrorRes) {
         this.mErrorRes = mErrorRes;
-    }
-
-
-    public void setErrorRes(int mErrorRes) {
-        this.mErrorRes = mErrorRes;
+        return this;
     }
 
 

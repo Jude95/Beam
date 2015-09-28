@@ -35,4 +35,4 @@ Model都继承于[`AbsModel`](https://github.com/Jude95/Beam/wiki/Model)
     compile 'io.reactivex:rxandroid:1.0.1'
 
 ##MVP模式
-MVP模式在Android开发中的使用越来越流行，它十分适合Android。最好先看看[本框架对MVP的理解](https://github.com/Jude95/Beam/wiki/MVP%E6%A8%A1%E5%BC%8F)。
+MVP模式在Android开发中的使用越来越流行，它十分适合Android。最好先看看[本框架对MVP的理解](http://www.jianshu.com/p/ed2aa9546c2c)。
