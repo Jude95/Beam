@@ -2,7 +2,6 @@ package com.jude.beam.expansion.overlay;
 
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.R;
@@ -20,14 +19,14 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
     private View mErrorView;
 
 
-    public DefaultViewExpansionDelegate(BeamBaseActivity activity, FrameLayout container) {
-        super(activity, container);
+    public DefaultViewExpansionDelegate(BeamBaseActivity activity) {
+        super(activity);
         mConfig = getConfig();
     }
 
 
-    public DefaultViewExpansionDelegate(BeamBaseActivity activity, FrameLayout container, ViewConfig mConfig) {
-        super(activity, container);
+    public DefaultViewExpansionDelegate(BeamBaseActivity activity, ViewConfig mConfig) {
+        super(activity);
         this.mConfig = mConfig;
     }
 

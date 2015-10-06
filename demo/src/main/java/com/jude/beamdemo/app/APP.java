@@ -20,7 +20,7 @@ public class APP extends Application {
         JUtils.setDebug(true, "BeamTest");
         Fresco.initialize(this);
         Beam.init(this);
-        Beam.registerActivityLifeCycleDelegate(MineActivityLifeCycleDelegate.class);
+        Beam.setActivityLifeCycleDelegateProvider(new MineActivityLifeCycleDelegate.MineActivityLifeCycleDelegateProvider());
         RequestManager.getInstance().init(this);
         RequestManager.getInstance().setDebugMode(true, "BeamNet");
         ListConfig.setDefaultListConfig(

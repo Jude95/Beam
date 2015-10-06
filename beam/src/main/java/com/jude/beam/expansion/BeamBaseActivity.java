@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.jude.beam.Beam;
 import com.jude.beam.R;
 import com.jude.beam.bijection.BeamAppCompatActivity;
 import com.jude.beam.bijection.Presenter;
 import com.jude.beam.expansion.overlay.ViewExpansionDelegate;
-import com.jude.beam.expansion.overlay.ViewExpansionDelegateProvider;
 
 /**
  * Created by Mr.Jude on 2015/8/17.
@@ -53,6 +53,10 @@ public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivit
         super.setContentView(mContent);
     }
 
+    public FrameLayout getParentView(){
+        return mContentParent;
+    }
+
     @Override
     public void setContentView(int layoutResID) {
         this.setContentView(getLayoutInflater().inflate(layoutResID, mContent, false));
@@ -92,7 +96,7 @@ public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivit
     private ViewExpansionDelegate mDelegate;
 
     public ViewExpansionDelegate createViewExpansionDelegate() {
-        return ViewExpansionDelegateProvider.DEFAULT.createViewExpansionDelegate(this,mContentParent);
+        return Beam.createViewExpansionDelegate(this);
     }
 
     public final ViewExpansionDelegate getExpansion() {

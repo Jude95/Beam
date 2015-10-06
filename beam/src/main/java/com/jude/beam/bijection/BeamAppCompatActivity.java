@@ -28,16 +28,7 @@ public abstract class BeamAppCompatActivity<PresenterType extends Presenter> ext
     }
 
     public void preCreatePresenter(){
-        if (Beam.getActivityLifeCycleDelegateClass()!=null){
-            try {
-                activityLifeCycleDelegate = (ActivityLifeCycleDelegate) Beam.getActivityLifeCycleDelegateClass().newInstance();
-                activityLifeCycleDelegate.setActivity(this);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
+        activityLifeCycleDelegate = Beam.createActivityLifeCycleDelegate(this);
     }
 
     @Override

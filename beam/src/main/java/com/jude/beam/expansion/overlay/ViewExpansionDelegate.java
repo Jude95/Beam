@@ -12,9 +12,9 @@ public abstract class ViewExpansionDelegate {
     private BeamBaseActivity activity;
     private FrameLayout container;
 
-    public ViewExpansionDelegate(BeamBaseActivity activity, FrameLayout container) {
+    public ViewExpansionDelegate(BeamBaseActivity activity) {
         this.activity = activity;
-        this.container = container;
+        this.container = activity.getParentView();
     }
 
     public final BeamBaseActivity getActivity() {

@@ -13,7 +13,7 @@ import android.os.PersistableBundle;
 public class ActivityLifeCycleDelegate{
     private Activity act;
 
-    public void setActivity(Activity act) {
+    public ActivityLifeCycleDelegate(Activity act) {
         this.act = act;
     }
 
