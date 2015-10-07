@@ -31,7 +31,6 @@ Model都继承于[`AbsModel`](https://github.com/Jude95/Beam/wiki/Model)
 >
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.jude:easyrecyclerview:3.0.9'
-    compile 'com.afollestad:material-dialogs:0.7.9.1'
     compile 'io.reactivex:rxandroid:1.0.1'
 
 ##MVP模式
