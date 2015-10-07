@@ -7,7 +7,7 @@ expansion — 包含了对ui层的一系列拓展功能。并提供了数据展�
 model — 数据层，在APP启动时初始化所有model，并提供一个处理数据用的后台Looper线程。    
 
 ##使用  
-`compile 'com.jude:beam:2.2.13'`
+`compile 'com.jude:beam:2.3.1'`
 
 在你的自定义Application中加入 `Beam.init(this);`  
 让你的Activity都继承于  
