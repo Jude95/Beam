@@ -28,7 +28,6 @@ public class ServiceClient {
     private static RestAdapter createAdapter(){
         OkHttpClient okHttpClient = new OkHttpClient();
         return new RestAdapter.Builder()
-                .setEndpoint(API.URL.BASEURL)
                 .setLogLevel(BuildConfig.DEBUG?RestAdapter.LogLevel.FULL:RestAdapter.LogLevel.NONE)
                 .setConverter(new WrapperConverter())
                 .setClient(new OkClient(okHttpClient))

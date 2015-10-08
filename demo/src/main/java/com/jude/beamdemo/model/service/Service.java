@@ -6,6 +6,7 @@ import com.jude.beamdemo.model.bean.QuestionResult;
 
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.Headers;
 import retrofit.http.POST;
 import rx.Observable;
 
@@ -17,6 +18,7 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.GetQuestionList)
     Observable<QuestionResult> getQuestions(@Field("page") int page);
+
 
     @FormUrlEncoded
     @POST(API.URL.GetAnswerList)
