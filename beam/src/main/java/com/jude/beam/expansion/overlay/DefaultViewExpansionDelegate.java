@@ -1,9 +1,9 @@
 package com.jude.beam.expansion.overlay;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 import com.jude.beam.R;
 import com.jude.beam.expansion.BeamBaseActivity;
 
@@ -36,6 +36,7 @@ public class DefaultViewExpansionDelegate extends ViewExpansionDelegate {
 
     @Override
     public void showProgressDialog(String title) {
+        if(mProgressDialog!=null&&mProgressDialog.isShowing())mProgressDialog.dismiss();
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setTitle(title);
         mProgressDialog.setMessage(mConfig.mProgressTitle);

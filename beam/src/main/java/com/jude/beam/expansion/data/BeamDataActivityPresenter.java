@@ -3,6 +3,7 @@ package com.jude.beam.expansion.data;
 import com.jude.beam.bijection.Presenter;
 
 import rx.Observer;
+import rx.Subscriber;
 import rx.Subscription;
 import rx.subjects.BehaviorSubject;
 
@@ -16,7 +17,7 @@ public class BeamDataActivityPresenter<T extends BeamDataActivity,M> extends Pre
     @Override
     protected void onCreateView(T view) {
         super.onCreateView(view);
-        mSubscription = mData.subscribe(new Observer<M>() {
+        mSubscription = mData.unsafeSubscribe(new Subscriber<M>() {
             @Override
             public void onCompleted() {
 
