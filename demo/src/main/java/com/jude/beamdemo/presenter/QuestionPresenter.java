@@ -1,13 +1,14 @@
 package com.jude.beamdemo.presenter;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.beamdemo.model.QuestionModel;
 import com.jude.beamdemo.model.bean.Question;
 import com.jude.beamdemo.model.bean.QuestionResult;
 import com.jude.beamdemo.view.QuestionActivity;
+
+import java.util.List;
 
 import rx.functions.Func1;
 
@@ -24,9 +25,9 @@ import rx.functions.Func1;
 
         @Override
         public void onLoadMore() {
-            QuestionModel.getInstance().getQuestions(getCurPage()).map(new Func1<QuestionResult, Question[]>() {
+            QuestionModel.getInstance().getQuestions(getCurPage()).map(new Func1<QuestionResult, List<Question>>() {
                 @Override
-                public Question[] call(QuestionResult questionResult) {
+                public List<Question> call(QuestionResult questionResult) {
                     return questionResult.getQuestions();
                 }
             }).subscribe(getMoreSubscriber());
@@ -34,9 +35,9 @@ import rx.functions.Func1;
 
         @Override
         public void onRefresh() {
-            QuestionModel.getInstance().getQuestions(0).map(new Func1<QuestionResult, Question[]>() {
+            QuestionModel.getInstance().getQuestions(0).map(new Func1<QuestionResult, List<Question>>() {
                 @Override
-                public Question[] call(QuestionResult questionResult) {
+                public List<Question> call(QuestionResult questionResult) {
                     return questionResult.getQuestions();
                 }
             }).unsafeSubscribe(getRefreshSubscriber());
