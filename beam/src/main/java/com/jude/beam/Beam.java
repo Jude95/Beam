@@ -26,9 +26,9 @@ public final class Beam {
     }
 
     public static ViewExpansionDelegate createViewExpansionDelegate(BeamBaseActivity activity){
-        if (mViewExpansionDelegateProvider!=null)
+        if (mViewExpansionDelegateProvider==null)
             return ViewExpansionDelegateProvider.DEFAULT.createViewExpansionDelegate(activity);
-        else return null;
+        else return mViewExpansionDelegateProvider.createViewExpansionDelegate(activity);
     }
 
     public static void setActivityLifeCycleDelegateProvider(ActivityLifeCycleDelegateProvider activityLifeCycleDelegateClass){
