@@ -1,5 +1,7 @@
 package com.jude.beamdemo.model.bean;
 
+import java.util.List;
+
 /**
  * Created by zhuchenxi on 15/6/7.
  */
@@ -16,7 +18,7 @@ public class QuestionResult {
         this.curPage = curPage;
     }
 
-    Question[] questions;
+    List<Question> questions;
 
     public int getTotalCount() {
         return totalCount;
@@ -34,11 +36,11 @@ public class QuestionResult {
         this.totalPage = totalPage;
     }
 
-    public Question[] getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Question[] questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 }

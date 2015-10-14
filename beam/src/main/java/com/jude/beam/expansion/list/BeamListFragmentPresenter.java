@@ -9,6 +9,8 @@ import com.jude.beam.bijection.Presenter;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
+import java.util.List;
+
 import rx.Subscriber;
 
 /**
@@ -19,7 +21,7 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
         SwipeRefreshLayout.OnRefreshListener {
     DataAdapter mAdapter;
     int page = 0;
-    Subscriber<M[]> mRefreshSubscriber = new Subscriber<M[]>() {
+    Subscriber<List<M>> mRefreshSubscriber = new Subscriber<List<M>>() {
         @Override
         public void onCompleted() {
 
@@ -31,13 +33,13 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
         }
 
         @Override
-        public void onNext(M[] ms) {
+        public void onNext(List<M> ms) {
             getAdapter().clear();
             getAdapter().addAll(ms);
             page = 1;
         }
     };
-    Subscriber<M[]> mMoreSubscriber = new Subscriber<M[]>() {
+    Subscriber<List<M>> mMoreSubscriber = new Subscriber<List<M>>() {
         @Override
         public void onCompleted() {
 
@@ -49,7 +51,7 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
         }
 
         @Override
-        public void onNext(M[] ms) {
+        public void onNext(List<M> ms) {
             getAdapter().addAll(ms);
             page++;
         }
@@ -63,11 +65,11 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
         this.page = page;
     }
 
-    public Subscriber<M[]> getRefreshSubscriber(){
+    public Subscriber<List<M>> getRefreshSubscriber(){
         return mRefreshSubscriber;
     }
 
-    public Subscriber<M[]> getMoreSubscriber(){
+    public Subscriber<List<M>> getMoreSubscriber(){
         return mMoreSubscriber;
     }
 
