@@ -29,6 +29,7 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
 
         @Override
         public void onError(Throwable e) {
+            getView().stopRefresh();
             getView().showError();
         }
 
