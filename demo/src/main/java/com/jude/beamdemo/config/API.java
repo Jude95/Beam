@@ -9,8 +9,8 @@ public class API {
     public static class URL{
         public static final String BASEURL = "http://redrock.hotwoo.cn/zhihu/";
 
-        public static final String GetQuestionList = BASEURL+"/getQuestionList.php";
-        public static final String GetAnswerList = BASEURL+"/getAnswerList.php";
+        public static final String GetQuestionList = "/getQuestionList.php";
+        public static final String GetAnswerList = "/getAnswerList.php";
     }
 
     public static class WRAPPER {

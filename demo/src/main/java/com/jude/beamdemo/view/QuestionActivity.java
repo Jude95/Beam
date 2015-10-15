@@ -1,7 +1,6 @@
 package com.jude.beamdemo.view;
 
 
-import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -15,11 +14,6 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  */
     @RequiresPresenter(QuestionPresenter.class)
     public class QuestionActivity extends BeamListActivity<QuestionPresenter,Question> {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
 
     @Override
