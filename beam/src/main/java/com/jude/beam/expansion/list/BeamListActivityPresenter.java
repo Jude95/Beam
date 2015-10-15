@@ -1,7 +1,6 @@
 package com.jude.beam.expansion.list;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ViewGroup;
 
@@ -76,10 +75,8 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
         return mMoreSubscriber;
     }
 
-    @Override
-    protected void onCreate(T view, Bundle savedState) {
-        super.onCreate(view, savedState);
-        mAdapter = new DataAdapter(getView());
+    DataAdapter createDataAdapter(){
+        return mAdapter = new DataAdapter(getView());
     }
 
     public DataAdapter getAdapter(){
