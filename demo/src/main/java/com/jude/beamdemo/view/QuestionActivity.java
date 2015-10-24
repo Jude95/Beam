@@ -1,7 +1,6 @@
 package com.jude.beamdemo.view;
 
 
-import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -20,11 +19,6 @@ public class QuestionActivity extends BeamListActivity<QuestionPresenter,Questio
     @Override
     protected ListConfig getConfig() {
         return super.getConfig().setLoadmoreAble(false);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
 
