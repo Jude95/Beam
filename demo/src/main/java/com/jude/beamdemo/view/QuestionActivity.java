@@ -18,7 +18,7 @@ public class QuestionActivity extends BeamListActivity<QuestionPresenter,Questio
 
     @Override
     protected ListConfig getConfig() {
-        return super.getConfig().setLoadmoreAble(false);
+        return super.getConfig();
     }
 
 

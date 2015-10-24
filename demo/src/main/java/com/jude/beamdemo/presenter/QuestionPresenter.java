@@ -30,7 +30,7 @@ import rx.functions.Func1;
                 public List<Question> call(QuestionResult questionResult) {
                     return questionResult.getQuestions();
                 }
-            }).subscribe(getMoreSubscriber());
+            }).unsafeSubscribe(getMoreSubscriber());
         }
 
         @Override
