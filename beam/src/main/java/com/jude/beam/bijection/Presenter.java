@@ -43,6 +43,7 @@ public class Presenter<ViewType> {
     }
 
     void create(ViewType view,Bundle savedState){
+        this.view = view;
         onCreate(view,savedState);
     }
 }
