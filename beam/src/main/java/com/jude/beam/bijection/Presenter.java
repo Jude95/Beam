@@ -19,6 +19,7 @@ public class Presenter<ViewType> {
      * activity$OnCreate的回调,但执行延迟到OnCreate之后。
      */
     protected void onCreateView(ViewType view) {
+        this.view = view;
     }
     /**
      * activity$OnDestory的回调
@@ -42,7 +43,6 @@ public class Presenter<ViewType> {
     }
 
     void create(ViewType view,Bundle savedState){
-        this.view = view;
         onCreate(view,savedState);
     }
 }
