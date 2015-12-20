@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.jude.beam"
+        applicationId "com.jude.beamdemo"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
