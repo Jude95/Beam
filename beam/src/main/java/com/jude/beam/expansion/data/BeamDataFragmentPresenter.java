@@ -71,7 +71,7 @@ public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Pre
     /**
      * 获取存放数据的subscriber，通常用于
      *
-     *     Observable<M>.unsafeSubscribe(getDataSubscriber());
+     *     Observable.unsafeSubscribe(getDataSubscriber());
      *
      * @return
      */
