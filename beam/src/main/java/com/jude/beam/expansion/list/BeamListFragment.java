@@ -1,5 +1,6 @@
 package com.jude.beam.expansion.list;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.jude.beam.R;
+import com.jude.beam.Utils;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -91,6 +93,9 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
         if (mListConfig.mContainerEmptyAble){
             if (mListConfig.mContainerEmptyView != null)mListView.setEmptyView(mListConfig.mContainerEmptyView);
             else mListView.setEmptyView(mListConfig.mContainerEmptyRes);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mListConfig.mPaddingNavigationBarAble && Utils.hasSoftKeys(getContext())){
+            mListView.setPadding(0,0,0,Utils.getNavigationBarHeight(getContext()));
         }
     }
 
