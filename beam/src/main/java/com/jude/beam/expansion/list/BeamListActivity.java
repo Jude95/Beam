@@ -85,7 +85,7 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
             else mListView.setEmptyView(mListConfig.mContainerEmptyRes);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mListConfig.mPaddingNavigationBarAble && Utils.hasSoftKeys(this)){
-            mListView.setPadding(0,0,0,Utils.getNavigationBarHeight(this));
+            mListView.setRecyclerPadding(0,0,0,Utils.getNavigationBarHeight(this));
         }
     }
 

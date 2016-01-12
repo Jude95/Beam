@@ -95,7 +95,7 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
             else mListView.setEmptyView(mListConfig.mContainerEmptyRes);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mListConfig.mPaddingNavigationBarAble && Utils.hasSoftKeys(getContext())){
-            mListView.setPadding(0,0,0,Utils.getNavigationBarHeight(getContext()));
+            mListView.setRecyclerPadding(0,0,0,Utils.getNavigationBarHeight(getContext()));
         }
     }
 
