@@ -2,7 +2,7 @@
 Beam 是一套基于MVP模式的快速开发框架。定义了一套开发规范。并提供了基于这套规范的Activity，Fragment，Presenter，Model等父类及控件和API等，完成APP开发过程中大量繁琐工作。
 
 ##依赖
-`compile 'com.jude:beam:2.5.5'`
+`compile 'com.jude:beam:2.5.6'`
 
 ##MVP概念
 MVP模式在Android开发中的使用越来越流行，它十分适合Android。最好先看看[本框架对MVP的理解](http://www.jianshu.com/p/ed2aa9546c2c)。

@@ -12,6 +12,8 @@ public class DefaultPresenterManager extends PresenterManager {
     @Override
     public <T extends Presenter> T create(Object view) {
         T presenter = PresenterBuilder.fromViewClass(view.getClass());
+        if (presenter == null)return null;
+
         presenter.id = providePresenterId();
         idToPresenter.put(presenter.id, presenter);
         return presenter;
