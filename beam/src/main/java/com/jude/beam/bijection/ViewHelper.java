@@ -65,7 +65,8 @@ class ViewHelper<PresenterType extends Presenter> {
     }
 
     void onDestroyView(){
-        presenter.onDestroyView();
+        if (ensurePresenterInstance())
+            presenter.onDestroyView();
     }
 
     void onDestroy(){
