@@ -69,15 +69,17 @@ class ViewHelper<PresenterType extends Presenter> {
     }
 
     void onDestroy(){
-        PresenterManager.getInstance().destroy(presenter.id);
-        if (ensurePresenterInstance())
+        if (ensurePresenterInstance()){
+            PresenterManager.getInstance().destroy(presenter.id);
             presenter.onDestroy();
+        }
     }
 
     void onSave(Bundle state) {
-        state.putString(PRESENTER_ID, presenter.id);
-        if (ensurePresenterInstance())
+        if (ensurePresenterInstance()){
+            state.putString(PRESENTER_ID, presenter.id);
             presenter.onSave(state);
+        }
     }
 
     void onResume() {
