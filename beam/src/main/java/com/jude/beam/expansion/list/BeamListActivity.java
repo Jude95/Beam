@@ -33,7 +33,8 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
         createRecycler();
         findRecycler();
         initList();
-        mListView.setAdapterWithProgress(mAdapter = getPresenter().createDataAdapter());
+        if (mListConfig.mStartWithProgress) mListView.setAdapterWithProgress(mAdapter = getPresenter().createDataAdapter());
+        else mListView.setAdapter(mAdapter = getPresenter().createDataAdapter());
         initAdapter();
     }
 

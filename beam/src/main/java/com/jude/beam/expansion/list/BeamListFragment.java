@@ -41,7 +41,8 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
         createRecycler(container);
         findRecycler();
         initList();
-        mListView.setAdapterWithProgress(mAdapter = getPresenter().createDataAdapter());
+        if (mListConfig.mStartWithProgress) mListView.setAdapterWithProgress(mAdapter = getPresenter().createDataAdapter());
+        else mListView.setAdapter(mAdapter = getPresenter().createDataAdapter());
         initAdapter();
         return mRootView;
     }
