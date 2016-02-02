@@ -19,7 +19,7 @@ public class ListConfig implements Cloneable{
     boolean mContainerEmptyAble = true;
     boolean mContainerErrorAble = true;
     boolean mPaddingNavigationBarAble = false;
-    boolean mStartWithProgress = false;
+    boolean mStartWithProgress = true;
 
     View mContainerLayoutView;
     int mContainerLayoutRes = 0;

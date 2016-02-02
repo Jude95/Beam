@@ -3,7 +3,6 @@ package com.jude.beam.expansion.list;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.jude.beam.bijection.Presenter;
@@ -21,6 +20,7 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
         implements RecyclerArrayAdapter.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener{
     DataAdapter mAdapter;
     int page = 0;
+    boolean inited = false;
     Subscriber<List<M>> mRefreshSubscriber = new Subscriber<List<M>>() {
         @Override
         public void onCompleted() {
@@ -28,11 +28,13 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
 
         @Override
         public void onError(Throwable e) {
+            inited = true;
             getView().showError();
         }
 
         @Override
         public void onNext(List<M> ms) {
+            inited = true;
             getAdapter().clear();
             getAdapter().addAll(ms);
             page = 1;
@@ -46,7 +48,6 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
     @Override
     protected void onCreate(T view, Bundle savedState) {
         super.onCreate(view, savedState);
-        Log.i("beam","F"+(getView()==null)+(view==null));
 
     }
 
@@ -58,11 +59,13 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
 
         @Override
         public void onError(Throwable e) {
+            inited = true;
             getAdapter().pauseMore();
         }
 
         @Override
         public void onNext(List<M> ms) {
+            inited = true;
             getAdapter().addAll(ms);
             page++;
         }
@@ -85,7 +88,6 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
     }
 
     DataAdapter createDataAdapter(){
-        Log.i("beam","F"+(getView()==null));
         return mAdapter = new DataAdapter(getView());
     }
 

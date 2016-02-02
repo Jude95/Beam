@@ -20,6 +20,8 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
         SwipeRefreshLayout.OnRefreshListener {
     DataAdapter mAdapter;
     int page = 0;
+    boolean inited = false;
+
     Subscriber<List<M>> mRefreshSubscriber = new Subscriber<List<M>>() {
         @Override
         public void onCompleted() {
@@ -28,12 +30,14 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
 
         @Override
         public void onError(Throwable e) {
+            inited = true;
             getView().stopRefresh();
             getView().showError();
         }
 
         @Override
         public void onNext(List<M> ms) {
+            inited = true;
             getAdapter().clear();
             getAdapter().addAll(ms);
             page = 1;
@@ -47,11 +51,13 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
 
         @Override
         public void onError(Throwable e) {
+            inited = true;
             getAdapter().pauseMore();
         }
 
         @Override
         public void onNext(List<M> ms) {
+            inited = true;
             getAdapter().addAll(ms);
             page++;
         }
