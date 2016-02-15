@@ -33,15 +33,15 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
         createRecycler();
         findRecycler();
         initList();
-        if (mListConfig.mStartWithProgress&&!getPresenter().inited) mListView.setAdapterWithProgress(mAdapter = getPresenter().createDataAdapter());
-        else mListView.setAdapter(mAdapter = getPresenter().createDataAdapter());
+        if (mListConfig.mStartWithProgress&&!getPresenter().inited) mListView.setAdapterWithProgress(mAdapter = getPresenter().getAdapter());
+        else mListView.setAdapter(mAdapter = getPresenter().getAdapter());
         initAdapter();
     }
 
     public void stopRefresh(){
         mListView.getSwipeToRefresh().setRefreshing(false);
     }
-    public void showError(){
+    public void showError(Throwable e){
         mListView.showError();
     }
 

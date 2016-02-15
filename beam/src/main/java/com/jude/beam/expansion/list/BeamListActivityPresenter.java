@@ -29,7 +29,8 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
         @Override
         public void onError(Throwable e) {
             inited = true;
-            getView().showError();
+            getView().stopRefresh();
+            getView().showError(e);
         }
 
         @Override
@@ -85,10 +86,6 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Pre
 
     public Subscriber<List<M>> getMoreSubscriber(){
         return mMoreSubscriber;
-    }
-
-    DataAdapter createDataAdapter(){
-        return mAdapter = new DataAdapter(getView());
     }
 
     public DataAdapter getAdapter(){

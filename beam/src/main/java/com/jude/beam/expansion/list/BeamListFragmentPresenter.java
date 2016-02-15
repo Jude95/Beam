@@ -32,7 +32,7 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
         public void onError(Throwable e) {
             inited = true;
             getView().stopRefresh();
-            getView().showError();
+            getView().showError(e);
         }
 
         @Override
@@ -77,11 +77,6 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
 
     public Subscriber<List<M>> getMoreSubscriber(){
         return mMoreSubscriber;
-    }
-
-
-    DataAdapter createDataAdapter(){
-        return mAdapter = new DataAdapter(getView().getActivity());
     }
 
     public DataAdapter getAdapter(){
