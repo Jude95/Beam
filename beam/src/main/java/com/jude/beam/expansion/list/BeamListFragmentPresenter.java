@@ -80,6 +80,7 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
     }
 
     public DataAdapter getAdapter(){
+        if (mAdapter == null)mAdapter = new DataAdapter(getView().getContext());
         return mAdapter;
     }
 
