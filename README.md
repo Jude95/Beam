@@ -12,7 +12,7 @@ MVP模式在Android开发中的使用越来越流行，它十分适合Android。
 
 ##例子
 [Joy](https://github.com/Jude95/Joy)  豆逼APP（demo项目）  
-[SearchPictureTool](https://github.com/wenhuaijun/SearchPictureTool)  搜图神器 
+[SearchPictureTool](https://github.com/wenhuaijun/SearchPictureTool)  搜图神器   
 [Fishing](https://github.com/Jude95/Fishing)  空钩钓鱼  
 License
 -------
