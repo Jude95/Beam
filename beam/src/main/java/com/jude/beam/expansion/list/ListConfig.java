@@ -137,8 +137,8 @@ public class ListConfig implements Cloneable{
         return this;
     }
 
-    public ListConfig setContainerNoMoreAble(boolean mContainerNoMoreAble) {
-        this.mContainerEmptyAble = mContainerNoMoreAble;
+    public ListConfig setContainerEmptyAble(boolean mContainerEmptyAble) {
+        this.mContainerEmptyAble = mContainerEmptyAble;
         return this;
     }
 
