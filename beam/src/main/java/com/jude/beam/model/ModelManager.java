@@ -21,7 +21,7 @@ public class ModelManager {
             ApplicationInfo appInfo = ctx.getPackageManager()
                     .getApplicationInfo(ctx.getPackageName(),
                             PackageManager.GET_META_DATA);
-            if (appInfo.metaData == null||appInfo.metaData.getString("MODEL") == null){
+            if (appInfo.metaData == null||appInfo.metaData.getString("MODEL") == null||appInfo.metaData.getString("MODEL").isEmpty()){
                 Log.e("Beam","MODEL No Found!Have you declare MODEL in the manifests?");
                 return;
             }
