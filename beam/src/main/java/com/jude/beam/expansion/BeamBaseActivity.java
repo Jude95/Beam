@@ -1,6 +1,7 @@
 package com.jude.beam.expansion;
 
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -104,12 +105,17 @@ public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivit
         return mDelegate;
     }
 
-    protected final <E extends View> E $(View view,@IdRes int id){
+    protected final <E extends View> E $(@NonNull View view,@IdRes int id){
+        return (E)view.findViewById(id);
+    }
+    protected final <E extends View> E viewId(@NonNull View view,@IdRes int id){
         return (E)view.findViewById(id);
     }
     protected final <E extends View> E $(@IdRes int id){
         return (E)findViewById(id);
     }
-
+    protected final <E extends View> E viewId(@IdRes int id){
+        return (E)findViewById(id);
+    }
 
 }

@@ -47,10 +47,12 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
     }
 
     public void stopRefresh(){
-        mListView.getSwipeToRefresh().setRefreshing(false);
+        if(mListView!=null)
+            mListView.getSwipeToRefresh().setRefreshing(false);
     }
     public void showError(Throwable e){
-        mListView.showError();
+        if (mListView!=null)
+            mListView.showError();
     }
 
     public int getLayout(){

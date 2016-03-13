@@ -17,5 +17,6 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        data(5,5);
     }
 }
