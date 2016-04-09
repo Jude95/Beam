@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ViewGroup;
 
-import com.jude.beam.bijection.Presenter;
+import com.jude.beam.expansion.BeamBasePresenter;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -16,7 +16,7 @@ import rx.Subscriber;
 /**
  * Created by Mr.Jude on 2015/8/17.
  */
-public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Presenter<T>
+public class BeamListActivityPresenter<T extends BeamListActivity,M> extends BeamBasePresenter<T>
         implements RecyclerArrayAdapter.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener{
     DataAdapter mAdapter;
     int page = 0;

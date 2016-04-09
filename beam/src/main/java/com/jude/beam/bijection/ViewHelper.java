@@ -71,8 +71,8 @@ class ViewHelper<PresenterType extends Presenter> {
 
     void onDestroy(){
         if (ensurePresenterInstance()){
-            PresenterManager.getInstance().destroy(presenter.id);
             presenter.onDestroy();
+            PresenterManager.getInstance().destroy(presenter.id);
         }
     }
 

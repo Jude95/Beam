@@ -3,6 +3,7 @@ package com.jude.beam.model;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -12,17 +13,20 @@ import java.util.HashMap;
  */
 public class ModelManager {
     
-    final static HashMap<Class<?>,AbsModel> mModelMap = new HashMap<>();
-    final static BackThread mBackThread = new BackThread();
+    private final static HashMap<Class<?>,AbsModel> mModelMap = new HashMap<>();
+    private final static BackThread mBackThread = new BackThread();
+    private static Context mApplication;
+
     public static void init(final Context ctx){
         mBackThread.start();
+        mApplication = ctx;
         Class<?>[] models = null;
         try {
             ApplicationInfo appInfo = ctx.getPackageManager()
                     .getApplicationInfo(ctx.getPackageName(),
                             PackageManager.GET_META_DATA);
             if (appInfo.metaData == null||appInfo.metaData.getString("MODEL") == null||appInfo.metaData.getString("MODEL").isEmpty()){
-                Log.e("Beam","MODEL No Found!Have you declare MODEL in the manifests?");
+                //Log.e("Beam","MODEL No Found!Have you declare MODEL in the manifests?");
                 return;
             }
             String modelStr = appInfo.metaData.getString("MODEL").trim();
@@ -40,36 +44,48 @@ public class ModelManager {
         }
 
         for (Class m:models) {
-            if (m!=null && AbsModel.class.isAssignableFrom(m)){
-                try {
-                    AbsModel instance = (AbsModel) (m.newInstance());
-                    mModelMap.put(m, instance);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }else{
-                Log.e("Beam","your model must extends AbsModel");
-            }
+            createModel(m);
         }
+        for (AbsModel absModel : mModelMap.values()) {
+            launchModel(absModel);
+        }
+    }
+
+    private static <T extends AbsModel> T createModel(Class<T> clazz){
+        if (clazz!=null && AbsModel.class.isAssignableFrom(clazz)){
+            try {
+                AbsModel instance =  clazz.newInstance();
+                mModelMap.put(clazz, instance);
+                return (T) instance;
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }else{
+            throw new IllegalArgumentException("your model must extends AbsModel");
+        }
+        throw new IllegalArgumentException("your model must extends AbsModel");
+    }
+
+    private static void launchModel(@NonNull final AbsModel model){
+        model.onAppCreate(mApplication);
         //后台调用
-        final Class<?>[] finalModels = models;
         mBackThread.execute(new Runnable() {
             @Override
             public void run() {
-                for (Class m: finalModels) {
-                    if (m!=null)
-                    mModelMap.get(m).onAppCreateOnBackThread(ctx);
-                }
+                model.onAppCreateOnBackThread(mApplication);
             }
         });
+    }
 
-        //前台调用
-        for (Class m:models) {
-            if (m!=null && mModelMap.get(m)!=null)
-            mModelMap.get(m).onAppCreate(ctx);
+    public static <T extends AbsModel> T  getInstance(Class<T> clazz) {
+        if (mModelMap.get(clazz) == null){
+            synchronized (clazz){
+                launchModel(createModel(clazz));
+            }
         }
+        return (T) mModelMap.get(clazz);
     }
 
     static void runOnBackThread(Runnable runnable){

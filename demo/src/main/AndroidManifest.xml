@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="MODEL"
-            android:value=""
+            android:value="com.jude.beamdemo.model.DataModel"
             />
         <activity
             android:name="com.jude.beamdemo.ui.MainActivity"

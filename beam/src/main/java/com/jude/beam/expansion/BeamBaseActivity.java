@@ -118,4 +118,6 @@ public class  BeamBaseActivity<T extends Presenter> extends BeamAppCompatActivit
         return (E)findViewById(id);
     }
 
+
+
 }

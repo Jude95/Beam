@@ -1,6 +1,6 @@
 package com.jude.beam.expansion.data;
 
-import com.jude.beam.bijection.Presenter;
+import com.jude.beam.expansion.BeamBasePresenter;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -9,7 +9,19 @@ import rx.subjects.BehaviorSubject;
 /**
  * Created by Mr.Jude on 2015/8/20.
  */
-public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Presenter<T>{
+public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends BeamBasePresenter<T> {
+
+    /**
+     *      setData(M)   onNext(M)  Subscriber<M></>()
+     *         \              |         /
+     *          \             |        /
+     *           BehaviorSubject(mData)
+     *                        |
+     *                       -+-（会断开或者重新绑定）
+     *                        |
+     *                   Subscriber（这里回调调用View各方法）
+     */
+
     //用于缓存数据的Subscriber
     BehaviorSubject<M>  mData = BehaviorSubject.create();
     //View的订阅关系，View被销毁时自动取消订阅。
@@ -50,11 +62,13 @@ public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Pre
                 getView().setData(m);
             }
         });
+        M m = getDataFromIntent();
+        if (m !=null) setData(m);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onDestroyView() {
+        super.onDestroyView();
         mSubscription.unsubscribe();
     }
 
@@ -81,14 +95,6 @@ public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Pre
 
 
     /**
-     * 手动发布数据
-     * @param data
-     */
-    public void publishObject(M data){
-        mData.onNext(data);
-    }
-
-    /**
      * 手动发布错误
      * @param e
      */
@@ -96,4 +102,36 @@ public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Pre
         mData.onError(e);
     }
 
+    /**
+     * 直接获取数据
+     * @return
+     */
+    public M getData(){
+        return mData.getValue();
+    }
+
+    /**
+     * 手动发布数据
+     * @param data
+     */
+    public void setData(M data){
+        mData.onNext(data);
+    }
+
+    /**
+     * 更新数据
+     */
+    public void refresh(){
+        setData(getData());
+    }
+
+
+    /**
+     * use {@link #setData}
+     * @param data
+     */
+    @Deprecated
+    public void publishObject(M data){
+        mData.onNext(data);
+    }
 }

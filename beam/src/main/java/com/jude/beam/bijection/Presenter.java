@@ -2,12 +2,13 @@ package com.jude.beam.bijection;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 public class Presenter<ViewType> {
     /**
      * activity 第一次create直到到主动退出Activity之前都不会调用。
      */
-    protected void onCreate(ViewType view,Bundle savedState) {
+    protected void onCreate(@NonNull ViewType view, Bundle savedState) {
     }
     /**
      * presenter销毁时的回调。代表着activity正式退出
@@ -18,7 +19,7 @@ public class Presenter<ViewType> {
     /**
      * activity$OnCreate的回调,但执行延迟到OnCreate之后。
      */
-    protected void onCreateView(ViewType view) {
+    protected void onCreateView(@NonNull ViewType view) {
         this.view = view;
     }
     /**
