@@ -10,7 +10,7 @@ import android.os.Bundle;
 class ViewHelper<PresenterType extends Presenter> {
     public static final String PRESENTER_ID = "presenter_id";
 
-    PresenterManager manager;
+    boolean hasPresenter;
 
     public PresenterType getPresenter() {
         return presenter;
@@ -27,44 +27,74 @@ class ViewHelper<PresenterType extends Presenter> {
     void onCreate(Bundle savedInstanceState){
         String id ;
         if (savedInstanceState == null||(id = savedInstanceState.getString(PRESENTER_ID))== null){
-            presenter = PresenterManager.getInstance().create(view);
-            presenter.create(view,savedInstanceState);
+            createPresenter(savedInstanceState);
         }else{
             presenter = PresenterManager.getInstance().get(id);
             if (presenter == null){
-                //throw new RuntimeException("有可能为空？在逗我？");
-                presenter = PresenterManager.getInstance().create(view);
+                createPresenter(savedInstanceState);
             }
         }
     }
 
+    private void createPresenter(Bundle savedInstanceState){
+        presenter = PresenterManager.getInstance().create(view);
+        hasPresenter = presenter != null;
+        if (hasPresenter)
+            presenter.create(view,savedInstanceState);
+    }
+
+    boolean ensurePresenterInstance(){
+        if(presenter==null){
+            if (hasPresenter){
+                //能执行到这里就是见鬼了。表示View所对应的Presenter莫名其妙消失了。单独的View存在是很容易空指针的，所以直接重建最好。
+                if (view instanceof BeamAppCompatActivity){
+                    ((BeamAppCompatActivity) view).recreate();
+                }else if (view instanceof BeamFragment){
+                    ((BeamFragment) view).getActivity().recreate();
+                }
+            }
+            return false;
+        }else {
+            return true;
+        }
+    }
+
     void onPostCreate(){
-        presenter.onCreateView(view);
+        if (ensurePresenterInstance())
+            presenter.onCreateView(view);
     }
 
     void onDestroyView(){
-        presenter.onDestroyView();
+        if (ensurePresenterInstance())
+            presenter.onDestroyView();
     }
 
     void onDestroy(){
-        PresenterManager.getInstance().destroy(presenter.id);
-        presenter.onDestroy();
+        if (ensurePresenterInstance()){
+            presenter.onDestroy();
+            PresenterManager.getInstance().destroy(presenter.id);
+        }
     }
 
     void onSave(Bundle state) {
-        state.putString(PRESENTER_ID,presenter.id);
-        presenter.onSave(state);
+        if (ensurePresenterInstance()){
+            state.putString(PRESENTER_ID, presenter.id);
+            presenter.onSave(state);
+        }
     }
 
     void onResume() {
-        presenter.onResume();
+        if (ensurePresenterInstance())
+            presenter.onResume();
     }
 
     void onPause() {
-        presenter.onPause();
+        if (ensurePresenterInstance())
+            presenter.onPause();
     }
 
     void onResult(int requestCode, int resultCode, Intent data) {
-        presenter.onResult(requestCode,resultCode,data);
+        if (ensurePresenterInstance())
+            presenter.onResult(requestCode,resultCode,data);
     }
 }

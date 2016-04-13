@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ViewGroup;
 
-import com.jude.beam.bijection.Presenter;
+import com.jude.beam.expansion.BeamBasePresenter;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -15,11 +15,13 @@ import rx.Subscriber;
 /**
  * Created by Mr.Jude on 2015/8/17.
  */
-public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Presenter<T>
+public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends BeamBasePresenter<T>
         implements RecyclerArrayAdapter.OnLoadMoreListener,
         SwipeRefreshLayout.OnRefreshListener {
     DataAdapter mAdapter;
     int page = 0;
+    boolean inited = false;
+
     Subscriber<List<M>> mRefreshSubscriber = new Subscriber<List<M>>() {
         @Override
         public void onCompleted() {
@@ -28,12 +30,14 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
 
         @Override
         public void onError(Throwable e) {
+            inited = true;
             getView().stopRefresh();
-            getView().showError();
+            getView().showError(e);
         }
 
         @Override
         public void onNext(List<M> ms) {
+            inited = true;
             getAdapter().clear();
             getAdapter().addAll(ms);
             page = 1;
@@ -47,11 +51,13 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
 
         @Override
         public void onError(Throwable e) {
+            inited = true;
             getAdapter().pauseMore();
         }
 
         @Override
         public void onNext(List<M> ms) {
+            inited = true;
             getAdapter().addAll(ms);
             page++;
         }
@@ -73,12 +79,8 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Pre
         return mMoreSubscriber;
     }
 
-
-    DataAdapter createDataAdapter(){
-        return mAdapter = new DataAdapter(getView().getActivity());
-    }
-
     public DataAdapter getAdapter(){
+        if (mAdapter == null)mAdapter = new DataAdapter(getView().getContext());
         return mAdapter;
     }
 

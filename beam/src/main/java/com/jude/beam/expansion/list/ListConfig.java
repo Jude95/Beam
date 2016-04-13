@@ -18,6 +18,8 @@ public class ListConfig implements Cloneable{
     boolean mContainerProgressAble = true;
     boolean mContainerEmptyAble = true;
     boolean mContainerErrorAble = true;
+    boolean mPaddingNavigationBarAble = false;
+    boolean mStartWithProgress = true;
 
     View mContainerLayoutView;
     int mContainerLayoutRes = 0;
@@ -135,13 +137,23 @@ public class ListConfig implements Cloneable{
         return this;
     }
 
-    public ListConfig setContainerNoMoreAble(boolean mContainerNoMoreAble) {
-        this.mContainerEmptyAble = mContainerNoMoreAble;
+    public ListConfig setContainerEmptyAble(boolean mContainerEmptyAble) {
+        this.mContainerEmptyAble = mContainerEmptyAble;
         return this;
     }
 
     public ListConfig setContainerErrorAble(boolean mContainerErrorAble) {
         this.mContainerErrorAble = mContainerErrorAble;
+        return this;
+    }
+
+    public ListConfig setPaddingNavigationBarAble(boolean mPaddingNavigationBarAble){
+        this.mPaddingNavigationBarAble = mPaddingNavigationBarAble;
+        return this;
+    }
+
+    public ListConfig setStartWithProgress(boolean startWithProgress){
+        this.mStartWithProgress = startWithProgress;
         return this;
     }
 

@@ -1,6 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jude.beam">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jude.beam">
 
-    <application android:allowBackup="true" >
+    <application android:allowBackup="true">
 
     </application>
 

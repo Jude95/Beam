@@ -1,5 +1,6 @@
 package com.jude.beam.expansion.list;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.jude.beam.R;
+import com.jude.beam.Utils;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -31,15 +33,18 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
         createRecycler();
         findRecycler();
         initList();
-        mListView.setAdapterWithProgress(mAdapter = getPresenter().createDataAdapter());
+        if (mListConfig.mStartWithProgress&&!getPresenter().inited) mListView.setAdapterWithProgress(mAdapter = getPresenter().getAdapter());
+        else mListView.setAdapter(mAdapter = getPresenter().getAdapter());
         initAdapter();
     }
 
     public void stopRefresh(){
-        mListView.getSwipeToRefresh().setRefreshing(false);
+        if(mListView!=null)
+            mListView.getSwipeToRefresh().setRefreshing(false);
     }
-    public void showError(){
-        mListView.showError();
+    public void showError(Throwable e){
+        if (mListView!=null)
+            mListView.showError();
     }
 
     public int getLayout(){
@@ -81,6 +86,9 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
         if (mListConfig.mContainerEmptyAble){
             if (mListConfig.mContainerEmptyView != null)mListView.setEmptyView(mListConfig.mContainerEmptyView);
             else mListView.setEmptyView(mListConfig.mContainerEmptyRes);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mListConfig.mPaddingNavigationBarAble && Utils.hasSoftKeys(this)){
+            mListView.setRecyclerPadding(0,0,0,Utils.getNavigationBarHeight(this));
         }
     }
 
