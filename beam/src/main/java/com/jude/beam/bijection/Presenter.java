@@ -39,6 +39,7 @@ public class Presenter<ViewType> {
 
     String id;
     ViewType view;
+    @NonNull
     public final ViewType getView() {
         return view;
     }

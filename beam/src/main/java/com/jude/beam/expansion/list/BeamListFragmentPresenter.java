@@ -1,6 +1,8 @@
 package com.jude.beam.expansion.list;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ViewGroup;
 
@@ -62,6 +64,12 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Bea
             page++;
         }
     };
+
+    @Override
+    protected void onCreate(@NonNull T view, Bundle savedState) {
+        super.onCreate(view, savedState);
+        getAdapter().setContext(view.getContext());
+    }
 
     public int getCurPage(){
         return page;

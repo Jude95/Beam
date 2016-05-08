@@ -62,7 +62,7 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
             setContentView(getLayout());
         }else if (mListConfig.mContainerLayoutRes!=0){
             setContentView(mListConfig.mContainerLayoutRes);
-        }else if (mListConfig.mContainerErrorView!=null){
+        }else if (mListConfig.mContainerLayoutView!=null){
             setContentView(mListConfig.mContainerLayoutView);
         }else{
             EasyRecyclerView mListView = new EasyRecyclerView(this);

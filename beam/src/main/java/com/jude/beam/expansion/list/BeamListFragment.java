@@ -71,7 +71,7 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
             mRootView = LayoutInflater.from(getActivity()).inflate(getLayout(), container, false);
         }else if (mListConfig.mContainerLayoutRes!=0){
             mRootView = LayoutInflater.from(getActivity()).inflate(mListConfig.mContainerLayoutRes,container,false);
-        }else if (mListConfig.mContainerErrorView!=null){
+        }else if (mListConfig.mContainerLayoutView!=null){
             mRootView = mListConfig.mContainerLayoutView;
         }else{
             EasyRecyclerView mListView = new EasyRecyclerView(getActivity());
@@ -112,7 +112,7 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
         }
         if (mListConfig.mErrorAble){
             View errorView;
-            if (mListConfig.mErrorView != null)errorView = mAdapter.setMore(mListConfig.mErrorView,getPresenter());
+            if (mListConfig.mErrorView != null)errorView = mAdapter.setError(mListConfig.mErrorView);
             else errorView = mAdapter.setError(mListConfig.mErrorRes);
             if (mListConfig.mErrorTouchToResumeAble)errorView.setOnClickListener(new View.OnClickListener() {
                 @Override
