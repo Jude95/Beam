@@ -1,5 +1,6 @@
 package com.jude.beam.expansion.list;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  */
 public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> extends BeamFragment<T> {
     View mRootView;
+    Context mCtx;
     private ListConfig mListConfig;
     private EasyRecyclerView mListView;
     private BeamListFragmentPresenter.DataAdapter mAdapter;
@@ -27,15 +29,11 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
         return mListView;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mCtx = getContext();
         mListConfig = getConfig();
         createRecycler(container);
         findRecycler();

@@ -2,10 +2,10 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 9
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -21,7 +21,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.jude:easyrecyclerview:3.5.3'
+    compile 'com.jude:easyrecyclerview:3.5.6'
     compile 'io.reactivex:rxandroid:1.0.1'
 }
 
@@ -36,7 +36,7 @@ ext {
     gitUrl = 'https://github.com/Jude95/RequestVolley'
 
 
-    libraryVersion = '2.8.7-alpha4'//版本号
+    libraryVersion = '2.9.1'//版本号
     libraryName = 'beam'//项目名字，没什么用
     libraryDescription = 'A framwork for Android'//项目描述，没什么用
 

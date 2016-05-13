@@ -1,5 +1,6 @@
 package com.jude.beam.expansion.list;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,11 +18,10 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * Created by Mr.Jude on 2015/8/17.
  */
 public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> extends BeamBaseActivity<T> {
-
+    Context mCtx;
     private ListConfig mListConfig;
     private EasyRecyclerView mListView;
     private BeamListActivityPresenter.DataAdapter mAdapter;
-
     public EasyRecyclerView getListView() {
         return mListView;
     }
@@ -29,6 +29,7 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCtx = this;
         mListConfig = getConfig();
         createRecycler();
         findRecycler();

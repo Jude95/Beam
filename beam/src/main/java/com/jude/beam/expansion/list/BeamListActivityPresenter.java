@@ -12,6 +12,8 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import java.util.List;
 
 import rx.Subscriber;
+import rx.Subscription;
+import rx.subjects.ReplaySubject;
 
 /**
  * Created by Mr.Jude on 2015/8/17.
@@ -19,8 +21,11 @@ import rx.Subscriber;
 public class BeamListActivityPresenter<T extends BeamListActivity,M> extends BeamBasePresenter<T>
         implements RecyclerArrayAdapter.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener{
     DataAdapter mAdapter;
-    int page = 0;
-    boolean inited = false;
+    int page = 0;//Re:从0开始的异世界生活
+    boolean inited = false;//初始化过了，不用显示ProcessBar了
+    Subscription mAdapterSubscription;
+    public ReplaySubject<List<M>> mDataSubject = ReplaySubject.create();
+
     Subscriber<List<M>> mRefreshSubscriber = new Subscriber<List<M>>() {
         @Override
         public void onCompleted() {
@@ -29,33 +34,20 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Bea
         @Override
         public void onError(Throwable e) {
             inited = true;
-            getView().stopRefresh();
-            getView().showError(e);
+            mDataSubject.onError(e);
         }
 
         @Override
         public void onNext(List<M> ms) {
             inited = true;
-            getAdapter().clear();
-            getAdapter().addAll(ms);
+            //用新的替换，表示清空数据
+            mDataSubject.onCompleted();
+            mDataSubject = ReplaySubject.create();
+            mDataSubject.onNext(ms);
+            bind();
             page = 1;
         }
-
-        @Override
-        public void onStart() {
-        }
     };
-
-    @Override
-    protected void onCreateView(@NonNull T view) {
-        super.onCreateView(view);
-        mAdapter.setContext(view);
-    }
-
-    @Override
-    protected void onDestroyView() {
-        super.onDestroyView();
-    }
 
     Subscriber<List<M>> mMoreSubscriber = new Subscriber<List<M>>() {
         @Override
@@ -66,16 +58,58 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Bea
         @Override
         public void onError(Throwable e) {
             inited = true;
-            getAdapter().pauseMore();
+            mDataSubject.onError(e);
         }
 
         @Override
         public void onNext(List<M> ms) {
             inited = true;
-            getAdapter().addAll(ms);
+            mDataSubject.onNext(ms);
             page++;
         }
     };
+
+    private void bind(){
+        if (mAdapterSubscription!=null)mAdapterSubscription.unsubscribe();
+        //开始与View的各种逻辑绑定。
+        mAdapterSubscription = mDataSubject.subscribe(new Subscriber<List<M>>() {
+            @Override
+            public void onCompleted() {
+                //onCompleted过后Subject就会被替换。意思是数据被清空。
+                getAdapter().clear();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (mAdapter!=null&&mAdapter.getCount()==0){
+                    //没有数据的时候出错，就显示全屏的错误提示
+                    getView().stopRefresh();
+                    getView().showError(e);
+                }else {
+                    //有数据时的出错，在最后一条显示错误提示
+                    getAdapter().pauseMore();
+                }
+            }
+
+            @Override
+            public void onNext(List<M> m) {
+                getAdapter().addAll(m);
+            }
+        });
+    }
+
+    @Override
+    protected void onCreateView(@NonNull T view) {
+        super.onCreateView(view);
+        bind();
+    }
+
+    @Override
+    protected void onDestroyView() {
+        super.onDestroyView();
+        mAdapterSubscription.unsubscribe();
+        mAdapter = null;//Adapter与View的耦合根本解不开，所以也必须释放。
+    }
 
     public int getCurPage(){
         return page;
@@ -93,8 +127,9 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Bea
         return mMoreSubscriber;
     }
 
-    public DataAdapter getAdapter(){
-        if (mAdapter == null)mAdapter = new DataAdapter(getView());
+    public DataAdapter getAdapter()  {
+        if (getView().mCtx == null)throw new RuntimeException("you shouldn't use getView() at Presenter's onCreate(),onCreateView() may invoke more than once,you should put the config code into onCreateView()");
+        if (mAdapter == null)mAdapter = new DataAdapter(getView().mCtx);
         return mAdapter;
     }
 
@@ -112,6 +147,10 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Bea
             super(context);
         }
 
+        public DataAdapter(Context context,List<M> data) {
+            super(context,data);
+        }
+
         @Override
         public int getViewType(int position) {
             return getView().getViewType(position);
@@ -122,7 +161,4 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Bea
             return getView().getViewHolder(parent, viewType);
         }
     }
-
-
-
 }
