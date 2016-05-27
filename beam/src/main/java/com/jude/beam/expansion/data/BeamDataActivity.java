@@ -1,5 +1,7 @@
 package com.jude.beam.expansion.data;
 
+import android.support.annotation.Nullable;
+
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 
@@ -9,7 +11,7 @@ import com.jude.beam.expansion.BeamBaseActivity;
 @RequiresPresenter(BeamDataActivityPresenter.class)
 public class BeamDataActivity<T extends BeamDataActivityPresenter,M> extends BeamBaseActivity<T>{
 
-    public void setData(M data){}
+    public void setData(@Nullable M data){}
     public void setError(Throwable e){}
 
 }

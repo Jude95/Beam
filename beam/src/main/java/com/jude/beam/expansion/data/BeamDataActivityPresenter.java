@@ -1,6 +1,7 @@
 package com.jude.beam.expansion.data;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.jude.beam.expansion.BeamBasePresenter;
 
@@ -46,7 +47,7 @@ public class BeamDataActivityPresenter<T extends BeamDataActivity,M> extends Bea
     };
 
     @Override
-    protected void onCreate(T view, Bundle savedState) {
+    protected void onCreate(@NonNull T view, Bundle savedState) {
         super.onCreate(view, savedState);
         //如果默认数据字段有内容则自动发布数据
         M m = getDataFromIntent();
@@ -55,7 +56,7 @@ public class BeamDataActivityPresenter<T extends BeamDataActivity,M> extends Bea
 
 
     @Override
-    protected void onCreateView(T view) {
+    protected void onCreateView(@NonNull T view) {
         super.onCreateView(view);
         mSubscription = mData.unsafeSubscribe(new Subscriber<M>() {
             @Override

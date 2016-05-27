@@ -1,5 +1,7 @@
 package com.jude.beam.expansion.data;
 
+import android.support.annotation.NonNull;
+
 import com.jude.beam.expansion.BeamBasePresenter;
 
 import rx.Subscriber;
@@ -44,7 +46,7 @@ public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Bea
     };
 
     @Override
-    protected void onCreateView(T view) {
+    protected void onCreateView(@NonNull T view) {
         super.onCreateView(view);
         mSubscription = mData.unsafeSubscribe(new Subscriber<M>() {
             @Override
