@@ -123,7 +123,7 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
         return 0;
     }
 
-    protected abstract BaseViewHolder getViewHolder(ViewGroup parent,int viewType);
+    protected abstract BaseViewHolder<M> getViewHolder(ViewGroup parent,int viewType);
 
 
 }

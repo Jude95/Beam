@@ -20,9 +20,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.jude:easyrecyclerview:3.5.6'
-    compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.jude:easyrecyclerview:3.5.8'
+    compile 'io.reactivex:rxandroid:1.1.0'
 }
 
 ext {

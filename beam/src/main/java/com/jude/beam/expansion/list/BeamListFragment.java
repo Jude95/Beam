@@ -129,7 +129,7 @@ public abstract class BeamListFragment<T extends BeamListFragmentPresenter, M> e
         return 0;
     }
 
-    protected abstract BaseViewHolder getViewHolder(ViewGroup parent,int viewType);
+    protected abstract BaseViewHolder<M> getViewHolder(ViewGroup parent,int viewType);
 
 
 }
