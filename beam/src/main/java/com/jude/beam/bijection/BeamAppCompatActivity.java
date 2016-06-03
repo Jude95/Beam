@@ -4,9 +4,10 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
+import android.view.accessibility.AccessibilityEvent;
 
 import com.jude.beam.Beam;
 
@@ -52,6 +53,39 @@ public abstract class BeamAppCompatActivity<PresenterType extends Presenter> ext
         super.onSaveInstanceState(outState);
         if (activityLifeCycleDelegate!=null)activityLifeCycleDelegate.onSaveInstanceState(outState);
         helper.onSave(outState);
+    }
+
+    @Override
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        if (activityLifeCycleDelegate!=null)return activityLifeCycleDelegate.dispatchPopulateAccessibilityEvent(event);
+        return super.dispatchPopulateAccessibilityEvent(event);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (activityLifeCycleDelegate!=null)return activityLifeCycleDelegate.dispatchTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean dispatchTrackballEvent(MotionEvent ev) {
+        if (activityLifeCycleDelegate!=null)return activityLifeCycleDelegate.dispatchTrackballEvent(ev);
+        return super.dispatchTrackballEvent(ev);
+    }
+
+
+    boolean dispatchPopulateAccessibilityEventSuper(AccessibilityEvent event) {
+        return super.dispatchPopulateAccessibilityEvent(event);
+    }
+
+
+    boolean dispatchTouchEventSuper(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+
+    boolean dispatchTrackballEventSuper(MotionEvent ev) {
+        return super.dispatchTrackballEvent(ev);
     }
 
     @Override
@@ -101,11 +135,6 @@ public abstract class BeamAppCompatActivity<PresenterType extends Presenter> ext
         if (activityLifeCycleDelegate!=null)activityLifeCycleDelegate.onRestart();
     }
 
-    @Override
-    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onPostCreate(savedInstanceState, persistentState);
-        if (activityLifeCycleDelegate!=null)activityLifeCycleDelegate.onPostCreate(savedInstanceState, persistentState);
-    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -113,17 +142,7 @@ public abstract class BeamAppCompatActivity<PresenterType extends Presenter> ext
         if (activityLifeCycleDelegate!=null)activityLifeCycleDelegate.onRestoreInstanceState(savedInstanceState);
     }
 
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
-        if (activityLifeCycleDelegate!=null)activityLifeCycleDelegate.onRestoreInstanceState(savedInstanceState, persistentState);
-    }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        if (activityLifeCycleDelegate!=null)activityLifeCycleDelegate.onSaveInstanceState(outState, outPersistentState);
-    }
 
     @Override
     protected void onUserLeaveHint() {

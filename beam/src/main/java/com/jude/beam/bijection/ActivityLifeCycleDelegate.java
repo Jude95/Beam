@@ -1,45 +1,36 @@
 package com.jude.beam.bijection;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.view.MotionEvent;
+import android.view.accessibility.AccessibilityEvent;
 
 /**
  * Created by Mr.Jude on 2015/8/22.
  */
 public class ActivityLifeCycleDelegate{
-    private Activity act;
+    private BeamAppCompatActivity act;
 
-    public ActivityLifeCycleDelegate(Activity act) {
+    public ActivityLifeCycleDelegate(BeamAppCompatActivity act) {
         this.act = act;
     }
 
-    public Activity getActivity() {
+    public BeamAppCompatActivity getActivity() {
         return act;
     }
 
     protected void onCreate(Bundle savedInstanceState) {
     }
 
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-    }
-
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-    }
-
-    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
     }
 
     protected void onPostCreate(Bundle savedInstanceState) {
     }
 
     protected void onStart() {
-    }
-
-    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
     }
 
     protected void onRestart() {
@@ -55,9 +46,6 @@ public class ActivityLifeCycleDelegate{
     }
 
     protected void onSaveInstanceState(Bundle outState) {
-    }
-
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
     }
 
     protected void onPause() {
@@ -97,5 +85,17 @@ public class ActivityLifeCycleDelegate{
 
     public void onResumeFragments() {
 
+    }
+
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        return getActivity().dispatchPopulateAccessibilityEventSuper(event);
+    }
+
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return getActivity().dispatchTouchEventSuper(ev);
+    }
+
+    public boolean dispatchTrackballEvent(MotionEvent ev) {
+        return getActivity().dispatchTrackballEventSuper(ev);
     }
 }
