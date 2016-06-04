@@ -1,10 +1,10 @@
 package com.jude.beam;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.jude.beam.bijection.ActivityLifeCycleDelegate;
 import com.jude.beam.bijection.ActivityLifeCycleDelegateProvider;
+import com.jude.beam.bijection.BeamAppCompatActivity;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.beam.expansion.overlay.ViewExpansionDelegate;
 import com.jude.beam.expansion.overlay.ViewExpansionDelegateProvider;
@@ -19,7 +19,7 @@ public final class Beam {
     private static ViewExpansionDelegateProvider mViewExpansionDelegateProvider;
 
 
-    public static ActivityLifeCycleDelegate createActivityLifeCycleDelegate(Activity activity) {
+    public static ActivityLifeCycleDelegate createActivityLifeCycleDelegate(BeamAppCompatActivity activity) {
         if (mActivityLIfeCycleDelegateProvider!=null)
             return mActivityLIfeCycleDelegateProvider.createActivityLifeCycleDelegate(activity);
         else return null;
