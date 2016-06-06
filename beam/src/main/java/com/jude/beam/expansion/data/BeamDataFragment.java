@@ -10,6 +10,8 @@ import com.jude.beam.bijection.RequiresPresenter;
 public class BeamDataFragment<T extends BeamDataFragmentPresenter,M> extends BeamFragment<T> {
 
     public void setData(M data){}
-    public void setError(Throwable e){}
+    public void setError(Throwable e){
+        throw new RuntimeException(e);
+    }
 
 }

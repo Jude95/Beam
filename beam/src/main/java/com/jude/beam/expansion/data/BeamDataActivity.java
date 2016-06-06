@@ -12,6 +12,8 @@ import com.jude.beam.expansion.BeamBaseActivity;
 public class BeamDataActivity<T extends BeamDataActivityPresenter,M> extends BeamBaseActivity<T>{
 
     public void setData(@Nullable M data){}
-    public void setError(Throwable e){}
+    public void setError(Throwable e){
+        throw new RuntimeException(e);
+    }
 
 }
