@@ -115,7 +115,7 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
         }
     }
 
-    protected ListConfig getConfig(){
+    public ListConfig getConfig(){
         return ListConfig.Default.clone();
     }
 
@@ -123,7 +123,7 @@ public abstract class BeamListActivity<T extends BeamListActivityPresenter, M> e
         return 0;
     }
 
-    protected abstract BaseViewHolder<M> getViewHolder(ViewGroup parent,int viewType);
+    public abstract BaseViewHolder<M> getViewHolder(ViewGroup parent,int viewType);
 
 
 }

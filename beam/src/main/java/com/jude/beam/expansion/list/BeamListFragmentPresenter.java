@@ -22,7 +22,7 @@ public class BeamListFragmentPresenter<T extends BeamListFragment,M> extends Bea
         implements RecyclerArrayAdapter.OnLoadMoreListener,
         SwipeRefreshLayout.OnRefreshListener {
     DataAdapter mAdapter;
-    int page = 0;//Re:从0开始的异世界生活
+    int page = 0;//Re:从0开始
     boolean inited = false;//初始化过了，不用显示ProcessBar了
     Subscription mAdapterSubscription;
     public ReplaySubject<List<M>> mDataSubject = ReplaySubject.create();
