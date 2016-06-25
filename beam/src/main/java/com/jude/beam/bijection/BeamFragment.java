@@ -29,11 +29,15 @@ public class BeamFragment<PresenterType extends Presenter> extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        helper.onDestroyView();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        helper.onDestroyView();
-        if (getActivity().isFinishing())
-            helper.onDestroy();
+        helper.onDestroy();
     }
 
     @Override
