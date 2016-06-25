@@ -81,9 +81,9 @@ public class BeamListActivityPresenter<T extends BeamListActivity,M> extends Bea
 
             @Override
             public void onError(Throwable e) {
+                getView().stopRefresh();
                 if (mAdapter!=null&&mAdapter.getCount()==0){
                     //没有数据的时候出错，就显示全屏的错误提示
-                    getView().stopRefresh();
                     getView().showError(e);
                 }else {
                     //有数据时的出错，在最后一条显示错误提示
