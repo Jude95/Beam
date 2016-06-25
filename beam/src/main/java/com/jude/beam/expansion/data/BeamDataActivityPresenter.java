@@ -32,7 +32,6 @@ public class BeamDataActivityPresenter<T extends BeamDataActivity,M> extends Bea
     private Subscriber<M> mSubscriber = new Subscriber<M>() {
         @Override
         public void onCompleted() {
-            mData.onCompleted();
         }
 
         @Override

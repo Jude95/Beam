@@ -31,7 +31,6 @@ public class BeamDataFragmentPresenter<T extends BeamDataFragment,M> extends Bea
     private Subscriber<M> mSubscriber = new Subscriber<M>() {
         @Override
         public void onCompleted() {
-            mData.onCompleted();
         }
 
         @Override
